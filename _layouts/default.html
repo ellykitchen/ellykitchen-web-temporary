@@ -135,6 +135,34 @@
 		</div>
 	</section>
 </main>
+<script>
+	// 섹션 주소(/about, /food, /location): 같은 페이지 안에서 스크롤하고 주소창만 바꾼다
+	(function () {
+		var SECTIONS = ['about', 'food', 'location'];
+		function scrollToSection(section, behavior) {
+			var el = section && document.getElementById(section);
+			if (el) el.scrollIntoView({ behavior: behavior });
+			else window.scrollTo({ top: 0, behavior: behavior });
+		}
+		document.addEventListener('click', function (e) {
+			var a = e.target.closest('a[data-section]');
+			if (!a || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
+			e.preventDefault();
+			var section = a.dataset.section;
+			var path = '/' + section;
+			if (location.pathname !== path) history.pushState(null, '', path);
+			scrollToSection(section);
+		});
+		// 예전 주소(/#about)로 들어오면 /about 으로 바꿔 준다
+		var hash = location.hash.slice(1);
+		var start = '{{ page.section }}';
+		if (SECTIONS.indexOf(hash) !== -1) {
+			start = hash;
+			history.replaceState(null, '', '/' + hash);
+		}
+		if (start) scrollToSection(start, 'instant');
+	})();
+</script>
 {% if l.naver_map_key_id %}
 <script>
 	window.navermap_authFailure = function () {

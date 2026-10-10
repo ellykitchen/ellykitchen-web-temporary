@@ -1,12 +1,11 @@
-{% if page.url == '/' %}{% assign home = '' %}{% else %}{% assign home = '/' %}{% endif %}
 <header class="siteHeader">
 	<div class="container siteHeader__inner">
 		<nav class="siteHeader__nav" aria-label="주요 메뉴">
-			<a href="{{ home }}#about">소개</a>
-			<a href="{{ home }}#food">음식</a>
-			<a href="{{ home }}#location">오시는 길</a>
+			<a href="/about" data-section="about">소개</a>
+			<a href="/food" data-section="food">음식</a>
+			<a href="/location" data-section="location">오시는 길</a>
 		</nav>
-		<a class="siteHeader__brand" href="{{ '/' | relative_url }}">
+		<a class="siteHeader__brand" href="{{ '/' | relative_url }}" data-section="">
 			<img class="siteHeader__icon" src="{{ site.app_icon | relative_url }}" alt="">
 			<span class="siteHeader__name">{{ site.brand.name }}</span>
 		</a>

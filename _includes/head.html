@@ -10,14 +10,15 @@
 
 	<link rel="icon" href="{{ site.app_icon | relative_url }}">
 	<link rel="apple-touch-icon" href="{{ site.app_icon | relative_url }}">
-	<link rel="canonical" href="{{ site.canonical_url }}{{ page.url }}" />
+	{% if page.section %}{% assign canonical_path = '/' %}{% else %}{% assign canonical_path = page.url %}{% endif %}
+	<link rel="canonical" href="{{ site.canonical_url }}{{ canonical_path }}" />
 
 	<meta property="og:type" content="website" />
 	<meta property="og:title" content="{{ full_title }}" />
 	<meta property="og:site_name" content="{{ site.page_title }}" />
 	<meta property="og:description" content="{{ site.site_description }}" />
 	<meta property="og:image" content="{{ site.og_image }}" />
-	<meta property="og:url" content="{{ site.canonical_url }}{{ page.url }}" />
+	<meta property="og:url" content="{{ site.canonical_url }}{{ canonical_path }}" />
 	<meta property="og:locale" content="ko_KR" />
 	<meta name="twitter:card" content="summary_large_image" />
 	<meta name="twitter:image" content="{{ site.og_image }}" />
