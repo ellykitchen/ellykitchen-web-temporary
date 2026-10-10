@@ -26,7 +26,7 @@ Jekyll 정적 사이트이며 GitHub Pages로 배포합니다. Emil Baehr의 [Au
 
 `location.naver_map_key_id`에 네이버 지도 API 클라이언트 ID를 넣으면 네이버 지도가 표시됩니다. 비어 있으면 키가 필요 없는 구글 지도 임베드가 대신 표시됩니다.
 
-키 발급: [네이버 클라우드 플랫폼 콘솔](https://console.ncloud.com) → AI·NAVER API → Application 등록 → Maps의 **Web Dynamic Map** 선택 → Web 서비스 URL에 `http://localhost:4000`(로컬 확인용)과 `https://ellykitchen.co.kr` 등록 → 발급된 Client ID를 설정에 입력. `_config.yml`을 고친 뒤에는 서버를 다시 시작합니다.
+키 발급: [네이버 클라우드 플랫폼 콘솔](https://console.ncloud.com) → AI·NAVER API → Application 등록 → Maps의 **Web Dynamic Map** 선택 → Web 서비스 URL에 `http://localhost:4000`(로컬 확인용), `https://www.ellykitchen.co.kr`, `https://ellykitchen.co.kr` 등록 → 발급된 Client ID를 설정에 입력. `_config.yml`을 고친 뒤에는 서버를 다시 시작합니다.
 
 ### 비워 둔 값 (정보가 생기면 채우기)
 
@@ -48,7 +48,7 @@ bundle exec jekyll serve
 
 ## 배포
 
-GitHub Pages에서 빌드·배포합니다. `CNAME`의 도메인(`ellykitchen.co.kr`)을 쓰려면 DNS에 GitHub Pages 레코드를 설정해야 합니다.
+GitHub Pages에서 `main` 브랜치를 빌드·배포합니다. 대표 주소는 `CNAME`의 `www.ellykitchen.co.kr`이고, `ellykitchen.co.kr`로 들어오면 대표 주소로 이동합니다. DNS(가비아)에는 루트 도메인 A 레코드 4개(GitHub Pages IP)와 `www` CNAME(`ellykitchen.github.io`)이 있으며, 메일(하이웍스) MX·SPF 레코드는 그대로 둡니다.
 
 ## 사진 출처
 

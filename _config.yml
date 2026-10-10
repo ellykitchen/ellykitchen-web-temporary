@@ -6,8 +6,8 @@
 # 사이트 기본
 page_title        : 엘리키친
 site_description  : 20년 외식 경력으로 자체 개발한 수제 밀키트 전문점, 엘리키친. 부산 해운대구 좌동.
-canonical_url     : https://ellykitchen.co.kr
-og_image          : https://ellykitchen.co.kr/assets/social-media-banner.jpg
+canonical_url     : https://www.ellykitchen.co.kr
+og_image          : https://www.ellykitchen.co.kr/assets/social-media-banner.jpg
 app_icon          : assets/app-icon.png
 
 # 브랜드
