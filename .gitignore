@@ -1,0 +1,16 @@
+# Jekyll 빌드 산출물·캐시
+_site/
+.jekyll-cache/
+.jekyll-metadata
+.sass-cache/
+
+# Ruby
+.bundle/
+vendor/
+
+# IDE (workspace.xml에 로컬 경로가 들어감)
+.idea/
+.vscode/
+
+# macOS
+.DS_Store

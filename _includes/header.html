@@ -1,0 +1,15 @@
+{% if page.url == '/' %}{% assign home = '' %}{% else %}{% assign home = '/' %}{% endif %}
+<header class="siteHeader">
+	<div class="container siteHeader__inner">
+		<nav class="siteHeader__nav" aria-label="주요 메뉴">
+			<a href="{{ home }}#about">소개</a>
+			<a href="{{ home }}#food">음식</a>
+			<a href="{{ home }}#location">오시는 길</a>
+		</nav>
+		<a class="siteHeader__brand" href="{{ '/' | relative_url }}">
+			<img class="siteHeader__icon" src="{{ site.app_icon | relative_url }}" alt="">
+			<span class="siteHeader__name">{{ site.brand.name }}</span>
+		</a>
+		<a class="btn btn--ghost btn--small siteHeader__call" href="tel:{{ site.location.phone | remove: '-' }}">{% include icon.html name="phone" %} <span class="siteHeader__phone">{{ site.location.phone }}</span><span class="siteHeader__phoneShort">전화</span></a>
+	</div>
+</header>

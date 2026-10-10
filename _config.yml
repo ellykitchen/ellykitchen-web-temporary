@@ -1,0 +1,156 @@
+# ───────────────────────────────────────────────
+# 엘리키친 소개 페이지 설정
+# 문구·연락처·사진은 대부분 이 파일에서 바꿀 수 있다.
+# ───────────────────────────────────────────────
+
+# 사이트 기본
+page_title        : 엘리키친
+site_description  : 20년 외식 경력으로 자체 개발한 수제 밀키트 전문점, 엘리키친. 부산 해운대구 좌동.
+canonical_url     : https://ellykitchen.co.kr
+og_image          : https://ellykitchen.co.kr/assets/social-media-banner.jpg
+app_icon          : assets/app-icon.png
+
+# 브랜드
+brand:
+  name            : 엘리키친
+  tagline         : 20년 외식 경력으로 만든 수제 밀키트와 반찬
+  title_lines:                                        # 히어로 제목 (줄마다 끊어서 표시)
+    - 20년 외식 경력으로 만든
+    - 수제 밀키트와 반찬
+  eyebrow         : 부산 해운대 좌동 · 수제 밀키트 전문점
+  lead            : 건강하고 맛있는 음식을 제공하고자 하는 엘리가 운영합니다. 자체 개발한 레시피로 매일 정성껏 만듭니다.
+  hero_image      : assets/photos/storefront.jpg
+  hero_image_alt  : 엘리키친 매장 외관. 아치형 입구 위에 엘리키친 간판이 걸려 있다.
+  facts:                                              # 히어로 버튼 아래 한 줄 정보
+    - icon        : map-pin
+      text        : 대천로 110, 1층
+    - icon        : parking
+      text        : 무료 주차
+    - icon        : bag
+      text        : 포장 · 예약 · 단체
+
+# 히어로 아래 사진 띠 (인스타그램 elly_kitchen_haeundae 게시물, 정사각형)
+strip:
+  - src           : assets/photos/strip-mealkit.jpg
+    alt           : 소분해 포장한 불고기 밀키트
+  - src           : assets/photos/strip-prep.jpg
+    alt           : 계란, 다진 파, 채소를 손질해 둔 모습
+  - src           : assets/photos/strip-sauce.jpg
+    alt           : 통에 담은 양념 반찬
+  - src           : assets/photos/strip-kimchi.jpg
+    alt           : 버무리는 중인 배추김치
+  - src           : assets/photos/strip-soup.jpg
+    alt           : 그릇에 담은 버섯 수프
+
+# 소개
+about:
+  heading_lines:                                      # 섹션 큰 제목
+    - 건강하고 맛있는 한 끼를
+    - 집에서도 간편하게
+  title           : 엘리키친 이야기
+  highlight       : 20년
+  highlight_text  : "외식 경력으로\n자체 개발한 레시피"   # \n 위치에서 줄을 바꾼다
+  paragraphs:
+    - 엘리키친은 20년 동안 외식업에 몸담아 온 엘리가 자체 개발한 레시피로 운영하는 수제 밀키트·반찬 전문점입니다.
+    - 건강하고 맛있는 음식을 집에서도 간편하게 드실 수 있도록, 재료 손질부터 조리까지 매장에서 직접 합니다.
+    - 매일 먹는 밑반찬부터 바로 조리해 먹는 밀키트까지, 한 끼를 든든하게 채워 드립니다.
+  images:
+    - src         : assets/photos/about-ingredients.jpg
+      alt         : 손질해 둔 부추, 당근, 무채
+    - src         : assets/photos/about-cooking.jpg
+      alt         : 소분 용기에 담아 둔 수프
+
+# 엘리키친의 약속 (아이콘 이름은 _includes/icon.html에 정의된 것)
+values:
+  title           : 엘리키친의 약속
+  items:
+    - title       : 자체 개발 레시피
+      text        : 20년 외식 경력에서 나온 엘리만의 레시피로 만듭니다.
+      icon        : utensils
+    - title       : 직접 손질한 재료
+      text        : 신선한 재료를 매장에서 직접 손질하고 조리합니다.
+      icon        : leaf
+    - title       : 포장 · 예약 · 단체 이용
+      text        : 포장과 예약이 가능하고, 단체 이용도 환영합니다.
+      icon        : bag
+
+# 음식 사진
+gallery:
+  title           : 엘리키친의 음식
+  subtitle        : 매장에서 직접 만드는 반찬과 밀키트입니다.
+  items:
+    - src         : assets/photos/gallery-pa-kimchi.jpg
+      alt         : 파김치
+    - src         : assets/photos/gallery-squid.jpg
+      alt         : 오징어채 무침
+    - src         : assets/photos/gallery-sausage-radish.jpg
+      alt         : 소시지 야채볶음
+    - src         : assets/photos/gallery-bibim.jpg
+      alt         : 채소 비빔
+    - src         : assets/photos/gallery-japchae.jpg
+      alt         : 잡채
+    - src         : assets/photos/gallery-mapo-tofu.jpg
+      alt         : 마파두부
+    - src         : assets/photos/gallery-bulgogi-hotpot.jpg
+      alt         : 불고기 전골
+    - src         : assets/photos/gallery-salad-box.jpg
+      alt         : 샐러드 도시락
+
+# 오시는 길
+location:
+  title           : 오시는 길
+  road_address    : 부산광역시 해운대구 대천로 110, 1층
+  lot_address     : 좌동 1295-2
+  phone           : 0507-1370-1273
+  hours           :                                   # 예) "매일 10:00 – 20:00 (일요일 휴무)". 비우면 표시하지 않는다.
+  parking         : 정문 도로변 주차 또는 후문 주차장 이용 가능 (무료)
+  transit         : 부산 2호선 장산역 4번 출구에서 도보 약 11분
+  naver_map_url   : https://map.naver.com/p/entry/place/1584111651
+  lat             : 35.1748429                        # 매장 좌표 (네이버 지도 기준)
+  lng             : 129.1743505
+  # 네이버 지도 API 클라이언트 ID (네이버 클라우드 플랫폼 > Maps > Web Dynamic Map 의 Client ID).
+  # 비어 있으면 키가 필요 없는 구글 지도 임베드로 대신 표시한다.
+  naver_map_key_id:
+  image           : assets/photos/storefront-day.jpg
+  image_alt       : 낮에 찍은 엘리키친 매장 입구
+  image_caption   : 부산 해운대구 좌동
+
+# 회사 정보 (푸터). 비운 항목은 표시하지 않는다.
+company:
+  name            : 엘리키친
+  legal_name      : 엘리키친                          # 상호 (사업자등록증 기준)
+  owner           : 진은경                            # 대표자
+  business_number : 470-63-00674                      # 사업자등록번호
+  email           :                                   # 문의 이메일
+  instagram       :                                   # 인스타그램 사용자명 (@ 제외). 현재 페이지에서는 사용하지 않음
+  kakao_channel   :                                   # 카카오톡 채널 URL
+
+# 테마 색
+# 가게 외관 톤: 크림색 벽, 차콜 간판, 주황 포인트
+color:
+  accent          : "#ee8a2e"                         # 간판 EK 마크·창틀 주황
+  accent_dark     : "#cf6f1c"
+  text            : "#3a3633"                         # 간판 차콜
+  text_muted      : "#7a726b"
+  cream           : "#f6f0e6"                         # 외벽 크림색
+  charcoal        : "#4a4744"                         # 간판 바탕
+  cream_deep      : "#efe5d4"                         # 구분 섹션 바탕
+  surface         : "#fffcf7"                         # 카드·음식 섹션 바탕
+  line            : "#e4d8c4"                         # 구분선
+  tint            : "#fbe6d0"                         # 아이콘 배지·배지 바탕
+
+####################################################
+### Jekyll 설정
+####################################################
+
+sass:
+  style: :compressed
+
+exclude:
+  - LICENSE
+  - README.md
+  - CNAME
+  - Gemfile
+  - Gemfile.lock
+
+markdown: kramdown

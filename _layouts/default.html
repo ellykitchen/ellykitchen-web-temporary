@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ko">
+{% include head.html %}
+<body>
+{% include header.html %}
+
+<main>
+	{% assign b = site.brand %}
+	{% assign l = site.location %}
+	<section class="hero">
+		<div class="container hero__inner">
+			<div class="hero__text">
+				<p class="hero__eyebrow">{{ b.eyebrow }}</p>
+				<h1 class="hero__title">{% for line in b.title_lines %}<span>{{ line }}</span>{% endfor %}</h1>
+				<p class="hero__lead">{{ b.lead }}</p>
+				<div class="hero__actions">
+					<a class="btn btn--primary" href="{{ l.naver_map_url }}" target="_blank" rel="noopener">{% include icon.html name="map" %} 네이버 지도</a>
+					<a class="btn btn--ghost" href="tel:{{ l.phone | remove: '-' }}">{% include icon.html name="phone" %} 전화하기</a>
+				</div>
+				{% if b.facts %}
+				<ul class="hero__facts">
+					{% for f in b.facts %}<li>{% include icon.html name=f.icon %} {{ f.text }}</li>{% endfor %}
+				</ul>
+				{% endif %}
+			</div>
+			<figure class="hero__figure">
+				<img src="{{ b.hero_image | relative_url }}" alt="{{ b.hero_image_alt }}" width="923" height="1154">
+			</figure>
+		</div>
+	</section>
+
+	{% if site.strip %}
+	<section class="strip" aria-label="매장에서 만드는 모습">
+		<ul class="container strip__list">
+			{% for img in site.strip %}
+			<li><img src="{{ img.src | relative_url }}" alt="{{ img.alt }}" loading="lazy" width="640" height="640"></li>
+			{% endfor %}
+		</ul>
+	</section>
+	{% endif %}
+
+	{% assign a = site.about %}
+	<section class="story" id="about">
+		<div class="container">
+			<h2 class="story__heading">{% for line in a.heading_lines %}<span>{{ line }}</span>{% endfor %}</h2>
+			<div class="story__row">
+				<div class="story__photos">
+					{% for img in a.images %}
+					<img src="{{ img.src | relative_url }}" alt="{{ img.alt }}" loading="lazy" width="800" height="1000">
+					{% endfor %}
+				</div>
+				<div class="story__text">
+					<h3 class="story__title">{{ a.title }}</h3>
+					{% for p in a.paragraphs %}<p>{{ p }}</p>{% endfor %}
+					{% if a.highlight %}
+					<p class="story__highlight"><strong>{{ a.highlight }}</strong><span>{{ a.highlight_text }}</span></p>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	</section>
+
+	{% assign v = site.values %}
+	<section class="promise">
+		<div class="container">
+			<h2 class="section__title">{{ v.title }}</h2>
+			<ol class="promise__list">
+				{% for item in v.items %}
+				<li class="promise__item">
+					<span class="promise__num">{{ forloop.index | prepend: '0' | slice: -2, 2 }}</span>
+					<h3>{{ item.title }}</h3>
+					<p>{{ item.text }}</p>
+				</li>
+				{% endfor %}
+			</ol>
+		</div>
+	</section>
+
+	{% assign g = site.gallery %}
+	<section class="food" id="food">
+		<div class="container">
+			<h2 class="section__title section__title--center">{{ g.title }}</h2>
+			{% if g.subtitle %}<p class="section__subtitle">{{ g.subtitle }}</p>{% endif %}
+			{% comment %}
+				엇갈린 열 배치. 데스크톱은 4열, 모바일은 2열 마크업을 따로 두고 화면 폭에 따라 하나만 보인다.
+				칸마다 (행 + 열)이 짝수면 세로로 긴 사진, 홀수면 짧은 사진.
+			{% endcomment %}
+			{% for cols in (2..4) %}{% if cols == 3 %}{% continue %}{% endif %}
+			{% assign per = g.items.size | divided_by: cols %}
+			<div class="food__grid food__grid--{{ cols }}">
+				{% for c in (1..cols) %}
+				{% assign col = c | minus: 1 %}
+				<div class="food__col">
+					{% for r in (1..per) %}
+					{% assign row = r | minus: 1 %}
+					{% assign idx = col | times: per | plus: row %}
+					{% assign item = g.items[idx] %}
+					{% assign parity = row | plus: col | modulo: 2 %}
+					<img class="{% if parity == 0 %}is-tall{% else %}is-short{% endif %}" src="{{ item.src | relative_url }}" alt="{{ item.alt }}" loading="lazy" width="700" height="700">
+					{% endfor %}
+				</div>
+				{% endfor %}
+			</div>
+			{% endfor %}
+		</div>
+	</section>
+
+	<section class="visit" id="location">
+		<div class="container">
+			<div class="visit__row">
+				<figure class="visit__figure">
+					<img src="{{ l.image | relative_url }}" alt="{{ l.image_alt }}" loading="lazy" width="1000" height="750">
+					{% if l.image_caption %}<figcaption>{{ l.image_caption }}</figcaption>{% endif %}
+				</figure>
+				<div class="visit__text">
+					<h2 class="visit__title">{{ l.title }}</h2>
+					<dl class="visit__info">
+						<div><dt>{% include icon.html name="map-pin" %}</dt><dd><span>주소</span>{{ l.road_address }}{% if l.lot_address %}<br>(지번) {{ l.lot_address }}{% endif %}</dd></div>
+						<div><dt>{% include icon.html name="phone" %}</dt><dd><span>전화</span><a href="tel:{{ l.phone | remove: '-' }}">{{ l.phone }}</a></dd></div>
+						{% if l.hours %}<div><dt>{% include icon.html name="clock" %}</dt><dd><span>영업시간</span>{{ l.hours }}</dd></div>{% endif %}
+						{% if l.parking %}<div><dt>{% include icon.html name="parking" %}</dt><dd><span>주차</span>{{ l.parking }}</dd></div>{% endif %}
+						{% if l.transit %}<div><dt>{% include icon.html name="train" %}</dt><dd><span>대중교통</span>{{ l.transit }}</dd></div>{% endif %}
+					</dl>
+					<div class="visit__actions">
+						<a class="btn btn--primary" href="{{ l.naver_map_url }}" target="_blank" rel="noopener">{% include icon.html name="map" %} 네이버 지도</a>
+						<a class="btn btn--ghost" href="tel:{{ l.phone | remove: '-' }}">{% include icon.html name="phone" %} 전화하기</a>
+					</div>
+				</div>
+			</div>
+			<div class="map" id="map" aria-label="엘리키친 위치 지도">
+				{% unless l.naver_map_key_id %}
+				<iframe class="map__fallback" src="https://www.google.com/maps/embed?origin=mfe&pb=!1m3!2m1!1s{{ l.lat }},{{ l.lng }}!6i17!3m1!1sko!5m1!1sko" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="엘리키친 위치 지도"></iframe>
+				{% endunless %}
+			</div>
+		</div>
+	</section>
+</main>
+{% if l.naver_map_key_id %}
+<script>
+	window.navermap_authFailure = function () {
+		// 키 인증 실패 시 구글 지도로 대체
+		document.getElementById('map').innerHTML = '<iframe class="map__fallback" src="https://www.google.com/maps/embed?origin=mfe&pb=!1m3!2m1!1s{{ l.lat }},{{ l.lng }}!6i17!3m1!1sko!5m1!1sko" title="엘리키친 위치 지도"></iframe>';
+	};
+	function initEllyMap() {
+		var pos = new naver.maps.LatLng({{ l.lat }}, {{ l.lng }});
+		var map = new naver.maps.Map('map', { center: pos, zoom: 17, scrollWheel: false, mapDataControl: false });
+		var marker = new naver.maps.Marker({ position: pos, map: map, title: '{{ site.brand.name }}' });
+		var info = new naver.maps.InfoWindow({
+			content: '<div class="map__info"><strong>{{ site.brand.name }}</strong><br>{{ l.road_address }}<br><a href="{{ l.naver_map_url }}" target="_blank" rel="noopener">네이버 지도에서 보기</a></div>',
+			borderWidth: 0, backgroundColor: 'transparent', disableAnchor: true
+		});
+		info.open(map, marker);
+		naver.maps.Event.addListener(marker, 'click', function () { info.getMap() ? info.close() : info.open(map, marker); });
+	}
+</script>
+<script src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId={{ l.naver_map_key_id }}&callback=initEllyMap" defer></script>
+{% endif %}
+
+{% include footer.html %}
+</body>
+</html>

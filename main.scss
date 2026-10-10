@@ -1,0 +1,18 @@
+---
+# Front matter comment to ensure Jekyll properly reads file.
+---
+
+$accent: {{ site.color.accent }};
+$accent-dark: {{ site.color.accent_dark }};
+$text: {{ site.color.text }};
+$text-muted: {{ site.color.text_muted }};
+$cream: {{ site.color.cream }};
+$charcoal: {{ site.color.charcoal }};
+$cream-deep: {{ site.color.cream_deep }};
+$surface: {{ site.color.surface }};
+$line: {{ site.color.line }};
+$tint: {{ site.color.tint }};
+
+@import
+    "base",
+    "layout";

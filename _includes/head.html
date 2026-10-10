@@ -1,0 +1,29 @@
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	{% assign page_title = page.title | default: site.page_title %}
+	{% if page.title %}{% assign full_title = page.title | append: " · " | append: site.page_title %}{% else %}{% assign full_title = site.page_title | append: " · " | append: site.brand.tagline %}{% endif %}
+	<title>{{ full_title }}</title>
+	<meta name="description" content="{{ site.site_description }}">
+
+	<link rel="icon" href="{{ site.app_icon | relative_url }}">
+	<link rel="apple-touch-icon" href="{{ site.app_icon | relative_url }}">
+	<link rel="canonical" href="{{ site.canonical_url }}{{ page.url }}" />
+
+	<meta property="og:type" content="website" />
+	<meta property="og:title" content="{{ full_title }}" />
+	<meta property="og:site_name" content="{{ site.page_title }}" />
+	<meta property="og:description" content="{{ site.site_description }}" />
+	<meta property="og:image" content="{{ site.og_image }}" />
+	<meta property="og:url" content="{{ site.canonical_url }}{{ page.url }}" />
+	<meta property="og:locale" content="ko_KR" />
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:image" content="{{ site.og_image }}" />
+
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap">
+	<link rel="stylesheet" href="{{ '/main.css' | relative_url }}">
+</head>

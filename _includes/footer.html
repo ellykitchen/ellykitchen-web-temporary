@@ -1,0 +1,22 @@
+{% assign c = site.company %}
+<footer class="siteFooter">
+	<div class="container">
+		<p class="siteFooter__name">{{ site.brand.name }}</p>
+
+		<dl class="siteFooter__info">
+			{% if c.legal_name or c.owner %}<div><dt>상호 · 대표</dt><dd>{{ c.legal_name }}{% if c.owner %} · {{ c.owner }}{% endif %}</dd></div>{% endif %}
+			{% if c.business_number %}<div><dt>사업자등록번호</dt><dd>{{ c.business_number }}</dd></div>{% endif %}
+			<div><dt>주소</dt><dd>{{ site.location.road_address }}</dd></div>
+			<div><dt>전화</dt><dd><a href="tel:{{ site.location.phone | remove: '-' }}">{{ site.location.phone }}</a></dd></div>
+			{% if c.email %}<div><dt>이메일</dt><dd><a href="mailto:{{ c.email }}">{{ c.email }}</a></dd></div>{% endif %}
+		</dl>
+
+		<div class="siteFooter__bottom">
+			<p>© {{ site.time | date: "%Y" }} {{ c.name }}</p>
+			<div class="siteFooter__links">
+				{% if c.kakao_channel %}<a href="{{ c.kakao_channel }}" target="_blank" rel="noopener">카카오톡 채널</a>{% endif %}
+				<a href="{{ site.location.naver_map_url }}" target="_blank" rel="noopener">네이버 지도에서 보기 {% include icon.html name="arrow-right" %}</a>
+			</div>
+		</div>
+	</div>
+</footer>

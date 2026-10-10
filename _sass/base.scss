@@ -1,0 +1,156 @@
+// 공통 변수
+$content-width: 1240px;               // 좌우 여백 20px 포함, 본문 1200px
+$font: "Noto Sans KR", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+$radius: 20px;
+$shadow: 0 18px 40px rgba($text, 0.12), 0 2px 6px rgba($text, 0.06);
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+html {
+	font-size: 62.5%;
+	scroll-behavior: smooth;
+	scroll-padding-top: 80px;
+}
+
+body {
+	font-family: $font;
+	font-size: 1.7rem;
+	line-height: 1.7;
+	color: $text;
+	background-color: $cream;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	word-break: keep-all;
+	overflow-wrap: break-word;
+}
+
+img {
+	display: block;
+	max-width: 100%;
+	height: auto;
+}
+
+a {
+	color: $accent-dark;
+	text-decoration: none;
+
+	&:hover {
+		text-decoration: underline;
+	}
+}
+
+h1, h2, h3 {
+	line-height: 1.3;
+	font-weight: 700;
+	color: $charcoal;
+}
+
+ul {
+	list-style: none;
+}
+
+.muted {
+	color: $text-muted;
+}
+
+.container {
+	width: 100%;
+	max-width: $content-width;
+	margin: 0 auto;
+	padding-left: 20px;
+	padding-right: 20px;
+}
+
+.icon {
+	flex-shrink: 0;
+	vertical-align: -0.15em;
+}
+
+// 버튼
+.btn {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	padding: 13px 22px;
+	border-radius: 999px;
+	font-size: 1.6rem;
+	font-weight: 500;
+	line-height: 1;
+	transition: transform 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease;
+
+	&:hover {
+		text-decoration: none;
+		transform: translateY(-1px);
+	}
+
+	&--primary {
+		background: $accent;
+		color: #fff;
+		box-shadow: 0 8px 20px rgba($accent, 0.3);
+
+		&:hover {
+			background: $accent-dark;
+		}
+	}
+
+	&--ghost {
+		background: $surface;
+		color: $text;
+		border: 1px solid $line;
+
+		&:hover {
+			border-color: $accent;
+			color: $accent-dark;
+		}
+	}
+
+	&--small {
+		padding: 10px 18px;
+		font-size: 1.5rem;
+	}
+}
+
+// 섹션 공통
+.section__title {
+	font-size: 4rem;
+	letter-spacing: -0.015em;
+	margin-bottom: 48px;
+
+	&--center {
+		text-align: center;
+	}
+}
+
+.section__subtitle {
+	text-align: center;
+	color: $text-muted;
+	margin-top: -36px;
+	margin-bottom: 48px;
+}
+
+@media (max-width: 768px) {
+	body {
+		font-size: 1.6rem;
+	}
+
+	.section__title {
+		font-size: 2.8rem;
+		margin-bottom: 28px;
+	}
+
+	.section__subtitle {
+		margin-top: -16px;
+		margin-bottom: 28px;
+	}
+}
+
+// 그리드 자식이 내용(이미지) 폭 때문에 넘치지 않도록
+.hero__inner > *, .story__row > *, .visit__row > * {
+	min-width: 0;
+}
