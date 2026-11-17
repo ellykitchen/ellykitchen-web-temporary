@@ -9,9 +9,6 @@
 			{% if c.mail_order_number %}<div><dt>통신판매업 신고번호</dt><dd>{{ c.mail_order_number }}</dd></div>{% endif %}
 			<div><dt>주소</dt><dd>{{ site.location.road_address }}</dd></div>
 			<div><dt>전화</dt><dd><a href="tel:{{ site.location.phone | remove: '-' }}">{{ site.location.phone }}</a></dd></div>
-			{% if c.email %}<div><dt>이메일</dt><dd><a href="mailto:{{ c.email }}">{{ c.email }}</a></dd></div>{% endif %}
-			{% if c.privacy_officer %}<div><dt>개인정보 보호책임자</dt><dd>{{ c.privacy_officer }}</dd></div>{% endif %}
-			{% if c.hosting %}<div><dt>호스팅서비스 제공자</dt><dd>{{ c.hosting }}</dd></div>{% endif %}
 		</dl>
 
 		<div class="siteFooter__bottom">

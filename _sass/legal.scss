@@ -78,6 +78,42 @@
 		text-indent: -1.4em;
 	}
 
+	// a. 주문 정보 같은 항목 제목 (개인정보 처리방침)
+	h3 {
+		font-size: 1.6rem;
+		margin: 20px 0 8px;
+	}
+
+	// 처리방침의 표: 좁은 화면에서는 표만 가로로 밀어 본다(페이지 전체는 가로로 밀리지 않게)
+	&__table {
+		overflow-x: auto;
+		margin: 8px 0 16px;
+
+		table {
+			width: 100%;
+			border-collapse: collapse;
+			font-size: 1.4rem;
+		}
+
+		th, td {
+			border: 1px solid $line;
+			padding: 8px 10px;
+			text-align: left;
+			vertical-align: top;
+		}
+
+		th {
+			background: $surface;
+			color: $charcoal;
+			white-space: nowrap;
+		}
+	}
+
+	// 본문 속 긴 웹 주소가 화면 밖으로 나가지 않게 줄을 넘김
+	p a, td a {
+		overflow-wrap: anywhere;
+	}
+
 	ol.items {
 		margin: 0 0 12px;
 		padding-left: 3em;
