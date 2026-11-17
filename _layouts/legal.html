@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ko">
+{% include head.html %}
+<body>
+{% include header.html %}
+
+{% comment %}
+	이용약관·개인정보 처리방침 같은 법정 문서 페이지.
+	본문(목차 + 조항)은 각 페이지 파일에 있고, 머리·바닥글은 홈과 같은 include를 쓴다.
+{% endcomment %}
+<main class="legal">
+	<div class="legal__inner">
+		<h1 class="legal__title">{{ site.brand.name }} {{ page.title }}</h1>
+		{% if page.effective_date %}<p class="legal__meta">시행일: {{ page.effective_date }}</p>{% endif %}
+		{{ content }}
+	</div>
+</main>
+
+{% include footer.html %}
+</body>
+</html>

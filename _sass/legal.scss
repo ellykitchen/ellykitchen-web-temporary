@@ -1,0 +1,120 @@
+// 이용약관·개인정보 처리방침 페이지 (_layouts/legal.html)
+.legal {
+	padding: 56px 0 96px;
+
+	&__inner {
+		max-width: 800px;
+		margin: 0 auto;
+		padding: 0 20px;
+	}
+
+	&__title {
+		font-size: 3.6rem;
+		letter-spacing: -0.015em;
+		margin-bottom: 8px;
+	}
+
+	&__meta {
+		color: $text-muted;
+		font-size: 1.5rem;
+		margin-bottom: 32px;
+	}
+
+	&__toc {
+		background: $surface;
+		border: 1px solid $line;
+		border-radius: 16px;
+		padding: 20px 24px;
+		margin-bottom: 48px;
+
+		strong {
+			display: block;
+			margin-bottom: 8px;
+			color: $charcoal;
+		}
+
+		ol {
+			list-style: none;
+			columns: 2;
+			column-gap: 32px;
+			font-size: 1.5rem;
+		}
+
+		a {
+			color: $text;
+
+			// 마우스·키보드로 고른 목차 항목이 보이게 — 키보드 초점 표시
+			&:hover {
+				text-decoration: underline;
+			}
+
+			&:focus-visible {
+				outline: 2px solid currentColor;
+				outline-offset: 2px;
+				border-radius: 2px;
+			}
+		}
+	}
+
+	section {
+		margin-bottom: 36px;
+		scroll-margin-top: 80px;          // 고정 헤더에 제목이 가리지 않게
+	}
+
+	h2 {
+		font-size: 2rem;
+		padding-bottom: 10px;
+		margin-bottom: 14px;
+		border-bottom: 1px solid $line;
+	}
+
+	p {
+		margin-bottom: 10px;
+	}
+
+	// ① ② 문단: 둘째 줄부터 번호 뒤에 맞춰 들여쓰기
+	p.para {
+		padding-left: 1.4em;
+		text-indent: -1.4em;
+	}
+
+	ol.items {
+		margin: 0 0 12px;
+		padding-left: 3em;
+
+		li {
+			margin-bottom: 4px;
+		}
+
+		// 호 아래 목(가. 나. …): 호 안에서 한 단 더 들여 씀
+		.sub {
+			display: block;
+			padding-left: 1em;
+		}
+	}
+}
+
+@media (max-width: 760px) {
+	.legal {
+		padding: 36px 0 64px;
+
+		&__title {
+			font-size: 2.8rem;
+		}
+
+		&__toc ol {
+			columns: 1;
+		}
+
+		// 좁은 폰에서 본문 폭을 넓히려고 호 번호 들여쓰기를 줄임
+		ol.items {
+			padding-left: 1.8em;
+		}
+	}
+}
+
+@media print {
+	.siteHeader, .siteFooter, .legal__toc {
+		display: none;
+	}
+}
