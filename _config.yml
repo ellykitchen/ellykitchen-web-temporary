@@ -122,16 +122,13 @@ company:
   owner           : 진은경                            # 대표자
   business_number : 470-63-00674                      # 사업자등록번호
   mail_order_number: 제2024-부산해운대-0001호          # 통신판매업 신고번호
-  email           : engineering-team@ellykitchen.co.kr # 문의 이메일
-  privacy_officer : 류지영                            # 개인정보 보호책임자 (연락처는 위 전화·이메일)
-  hosting         : Supabase Inc.(앱 서버), GitHub, Inc.(웹사이트)  # 호스팅서비스 제공자 (전자상거래법 시행령 제11조의4)
   instagram       :                                   # 인스타그램 사용자명 (@ 제외). 현재 페이지에서는 사용하지 않음
   kakao_channel   :                                   # 카카오톡 채널 URL
 
 # 약관·처리방침 페이지 주소 (푸터 링크). 비우면 링크를 표시하지 않는다.
 legal:
   terms_url       : /terms
-  privacy_url     :                                   # 개인정보 처리방침 페이지를 올리면 /privacy
+  privacy_url     : /privacy
 
 # 테마 색
 # 가게 외관 톤: 크림색 벽, 차콜 간판, 주황 포인트
