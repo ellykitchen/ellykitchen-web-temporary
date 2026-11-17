@@ -17,8 +17,8 @@
 		<div class="siteFooter__bottom">
 			<p>© {{ site.time | date: "%Y" }} {{ c.name }}</p>
 			<div class="siteFooter__links">
-				{% if site.legal.terms_url %}<a href="{{ site.legal.terms_url | relative_url }}">이용약관</a>{% endif %}
-				{% if site.legal.privacy_url %}<a class="siteFooter__privacy" href="{{ site.legal.privacy_url | relative_url }}">개인정보 처리방침</a>{% endif %}
+				{% if site.legal.terms_url %}<a href="{{ site.legal.terms_url | relative_url }}"{% if page.url == site.legal.terms_url %} aria-current="page"{% endif %}>이용약관</a>{% endif %}
+				{% if site.legal.privacy_url %}<a class="siteFooter__privacy" href="{{ site.legal.privacy_url | relative_url }}"{% if page.url == site.legal.privacy_url %} aria-current="page"{% endif %}>개인정보 처리방침</a>{% endif %}
 				{% if c.kakao_channel %}<a href="{{ c.kakao_channel }}" target="_blank" rel="noopener">카카오톡 채널</a>{% endif %}
 				<a href="{{ site.location.naver_map_url }}" target="_blank" rel="noopener">네이버 지도에서 보기 {% include icon.html name="arrow-right" %}</a>
 			</div>

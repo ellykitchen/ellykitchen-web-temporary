@@ -42,6 +42,17 @@
 
 		a {
 			color: $text;
+
+			// 마우스·키보드로 고른 목차 항목이 보이게 — 키보드 초점 표시
+			&:hover {
+				text-decoration: underline;
+			}
+
+			&:focus-visible {
+				outline: 2px solid currentColor;
+				outline-offset: 2px;
+				border-radius: 2px;
+			}
 		}
 	}
 
@@ -93,6 +104,11 @@
 
 		&__toc ol {
 			columns: 1;
+		}
+
+		// 좁은 폰에서 본문 폭을 넓히려고 호 번호 들여쓰기를 줄임
+		ol.items {
+			padding-left: 1.8em;
 		}
 	}
 }
