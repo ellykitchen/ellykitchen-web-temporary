@@ -107,6 +107,23 @@
 			color: $charcoal;
 			white-space: nowrap;
 		}
+
+		// 행 제목(수집 목적·보유 기간 …)은 좁은 화면에서 첫 열이 넓어지지 않게 줄을 넘긴다
+		th[scope="row"] {
+			white-space: normal;
+			min-width: 5em;
+		}
+
+		// 키보드로 표 상자에 왔을 때 보이게 — 키보드 초점 표시
+		&:focus-visible {
+			outline: 2px solid $charcoal;
+			outline-offset: 2px;
+		}
+	}
+
+	// 앱이 바로 여는 #consent 같은 문단 앵커도 목차 이동과 같은 간격으로 멈추게
+	[id] {
+		scroll-margin-top: 80px;
 	}
 
 	// 본문 속 긴 웹 주소가 화면 밖으로 나가지 않게 줄을 넘김

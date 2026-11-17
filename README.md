@@ -28,6 +28,7 @@ Jekyll 정적 사이트이며 GitHub Pages로 배포합니다. Emil Baehr의 [Au
 ## 어디를 고치면 되나
 
 - **문구·연락처·사진 경로·색상**: 전부 `_config.yml`에 있습니다. HTML을 건드리지 않아도 됩니다.
+- **이용약관·개인정보 처리방침의 연락처**: `terms.html`·`privacy.html` 본문에 들어 있어 `_config.yml`을 고쳐도 바뀌지 않습니다. 원본(Markdown)을 고친 뒤 다시 만듭니다.
 - **사진**: `assets/photos/`. 파일을 넣고 `_config.yml`의 `gallery.items`(음식) 또는 `strip`(사진 띠)에 한 줄 추가합니다. 음식 사진은 8장(4열×2, 모바일 2열×4) 기준으로 배치됩니다. 사진을 넣기 전에 위치 정보 같은 메타데이터를 지웁니다.
 - **아이콘**: `_includes/icon.html`에 인라인 SVG로 정의돼 있습니다. 외부 아이콘 폰트는 쓰지 않습니다.
 
