@@ -74,6 +74,12 @@
 		li {
 			margin-bottom: 4px;
 		}
+
+		// 호 아래 목(가. 나. …): 호 안에서 한 단 더 들여 씀
+		.sub {
+			display: block;
+			padding-left: 1em;
+		}
 	}
 }
 
