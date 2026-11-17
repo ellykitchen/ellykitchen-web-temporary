@@ -114,6 +114,25 @@
 			min-width: 5em;
 		}
 
+		// 두 칸 표: 모든 표의 첫 열 폭을 같게 해서 세로줄이 맞게
+		&--kv table {
+			table-layout: fixed;
+		}
+
+		&--kv thead th:first-child {
+			width: 9.5em;
+		}
+
+		// 업체가 여러 열인 넓은 표(국외 이전): 칸이 너무 좁아지지 않게, 대신 표 안에서 가로로 민다
+		&--wide thead th:not(:first-child),
+		&--wide td {
+			min-width: 12em;
+		}
+
+		&--wide th[scope="row"] {
+			min-width: 6.5em;
+		}
+
 		// 키보드로 표 상자에 왔을 때 보이게 — 키보드 초점 표시
 		&:focus-visible {
 			outline: 2px solid $charcoal;
@@ -129,6 +148,32 @@
 	// 본문 속 긴 웹 주소가 화면 밖으로 나가지 않게 줄을 넘김
 	p a, td a {
 		overflow-wrap: anywhere;
+	}
+
+	// 처리방침의 a. b. / - 목록: 표시(a. / -)는 글자로 들어 있어 번호를 따로 그리지 않는다.
+	// ① 문단의 본문 시작 위치에 맞춰 들여 쓰고, 표시를 고정 폭 칸에 두어 둘째 줄이 첫 줄 글자 위치에 맞게 한다
+	.items.items--marked {
+		list-style: none;
+		margin: 0 0 12px;
+		padding-left: 1.4em;
+
+		li {
+			position: relative;
+			padding-left: 1.6em;
+			margin-bottom: 4px;
+		}
+
+		// a. 항목 안의 - 하위 목록
+		.items--marked {
+			margin: 4px 0 0;
+			padding-left: 0;
+		}
+	}
+
+	.items__mark {
+		position: absolute;
+		left: 0;
+		width: 1.6em;
 	}
 
 	ol.items {
@@ -162,6 +207,11 @@
 		// 좁은 폰에서 본문 폭을 넓히려고 호 번호 들여쓰기를 줄임
 		ol.items {
 			padding-left: 1.8em;
+		}
+
+		// 좁은 폰에서 두 칸 표의 첫 열이 본문을 너무 많이 차지하지 않게
+		.legal__table--kv thead th:first-child {
+			width: 7em;
 		}
 	}
 }
