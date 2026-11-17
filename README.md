@@ -14,7 +14,16 @@ Jekyll 정적 사이트이며 GitHub Pages로 배포합니다. Emil Baehr의 [Au
 | 엘리키친의 약속 | 핵심 가치 3가지 |
 | 엘리키친의 음식 | 음식 사진 8장(엇갈린 배치, 이름 표기 없음) |
 | 오시는 길 | 주소, 전화, 주차, 대중교통, 네이버 지도 버튼, 지도 |
-| 푸터 | 상호, 대표, 사업자등록번호, 주소, 전화, 네이버 지도 링크 |
+| 푸터 | 상호, 대표, 사업자등록번호, 통신판매업 신고번호, 주소, 전화, 이메일, 개인정보 보호책임자, 호스팅서비스 제공자, 이용약관·개인정보 처리방침·네이버 지도 링크 |
+
+### 약관 페이지
+
+| 주소 | 파일 | 내용 |
+|---|---|---|
+| `/terms` | `terms.html` | 이용약관 (레이아웃 `_layouts/legal.html`, 스타일 `_sass/legal.scss`) |
+| `/privacy` | (준비 중) | 개인정보 처리방침. 올리면 `_config.yml`의 `legal.privacy_url`에 `/privacy`를 넣어 푸터 링크를 켭니다. |
+
+`terms.html`의 본문은 검토를 마친 약관 원본(Markdown)을 변환 스크립트로 만듭니다. 손으로 고치지 말고 원본을 고친 뒤 다시 만듭니다.
 
 ## 어디를 고치면 되나
 
@@ -32,7 +41,6 @@ Jekyll 정적 사이트이며 GitHub Pages로 배포합니다. Emil Baehr의 [Au
 
 - `location.hours`: 영업시간. 채우면 오시는 길에 한 줄 추가됩니다.
 - `location.naver_map_key_id`: 네이버 지도 API 클라이언트 ID.
-- `company.email`: 문의 이메일. 푸터에 표시됩니다.
 - `company.kakao_channel`: 카카오톡 채널 URL.
 
 ## 로컬 실행
