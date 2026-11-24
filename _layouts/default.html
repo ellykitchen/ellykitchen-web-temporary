@@ -1,189 +1,274 @@
 <!DOCTYPE html>
 <html lang="ko">
 {% include head.html %}
-<body>
-{% include header.html %}
+<body class="home">
+{% include header.html home=true %}
 
-<main>
+{% comment %}
+	메인 한 페이지 (2026-11-24 리뉴얼, Figma "17 소개 웹 · 리뉴얼 시안" 4안 1162:46).
+	섹션마다 화면 높이를 채우고, 데스크톱에서는 휠 한 번에 한 섹션씩 넘긴다(아래 스크립트).
+	문구·사진 경로는 모두 _config.yml에 있다. 문구는 앱(lib/i18n/ko.i18n.json)의 홈·온보딩 문구와 같게 맞춘다.
+	예전 주소 /about·/food·/location은 각각 story·menu·location 섹션으로 이어진다(about.html 등의 section 값).
+{% endcomment %}
+
+{% capture badges %}
+<div class="storeBadges">
+	<a class="storeBadge" href="{{ site.app.app_store_url }}" target="_blank" rel="noopener" aria-label="App Store에서 엘리키친 앱 받기">
+		{% include badge.html store="apple" %}
+	</a>
+	<a class="storeBadge" href="{{ site.app.play_store_url }}" target="_blank" rel="noopener" aria-label="Google Play에서 엘리키친 앱 받기">
+		{% include badge.html store="google" %}
+	</a>
+</div>
+{% endcapture %}
+
+<main class="pages">
 	{% assign b = site.brand %}
-	{% assign l = site.location %}
-	<section class="hero">
-		<div class="container hero__inner">
-			<div class="hero__text">
-				<p class="hero__eyebrow">{{ b.eyebrow }}</p>
-				<h1 class="hero__title">{% for line in b.title_lines %}<span>{{ line }}</span>{% endfor %}</h1>
-				<p class="hero__lead">{{ b.lead }}</p>
-				<div class="hero__actions">
-					<a class="btn btn--primary" href="{{ l.naver_map_url }}" target="_blank" rel="noopener">{% include icon.html name="map" %} 네이버 지도</a>
-					<a class="btn btn--ghost" href="tel:{{ l.phone | remove: '-' }}">{% include icon.html name="phone" %} 전화하기</a>
-				</div>
-				{% if b.facts %}
-				<ul class="hero__facts">
-					{% for f in b.facts %}<li>{% include icon.html name=f.icon %} {{ f.text }}</li>{% endfor %}
-				</ul>
-				{% endif %}
+	<section class="page page--photo" id="home" data-theme="dark" aria-labelledby="home-title">
+		<img class="page__bg" src="{{ b.hero_image | relative_url }}" alt="{{ b.hero_image_alt }}" width="1079" height="1472" fetchpriority="high">
+		<div class="page__scrim" aria-hidden="true"></div>
+		<div class="container page__inner">
+			<div class="page__text reveal">
+				<p class="page__kicker">{{ b.store_line }}</p>
+				<h1 class="page__hero" id="home-title">{% for line in b.title_lines %}<span>{{ line }}</span>{% endfor %}</h1>
+				<p class="page__lead">{{ b.lead }}</p>
+				{{ badges }}
 			</div>
-			<figure class="hero__figure">
-				<img src="{{ b.hero_image | relative_url }}" alt="{{ b.hero_image_alt }}" width="923" height="1154">
+		</div>
+	</section>
+
+	{% assign s = site.story %}
+	<section class="page page--accent" id="story" data-theme="light" aria-labelledby="story-title">
+		<div class="container page__inner page__inner--split">
+			<div class="page__text reveal">
+				<h2 class="page__name" id="story-title">{{ s.title }}</h2>
+				<p class="page__heading">{% for line in s.heading_lines %}<span>{{ line }}</span>{% endfor %}</p>
+				<p class="page__body">{{ s.text }}</p>
+			</div>
+			<ul class="bubbles reveal" aria-label="매장에서 만드는 음식">
+				{% for p in s.photos %}<li class="bubbles__item bubbles__item--{{ forloop.index }}"><img src="{{ p.src | relative_url }}" alt="{{ p.alt }}" loading="lazy" width="900" height="1200"></li>{% endfor %}
+			</ul>
+		</div>
+	</section>
+
+	{% assign g = site.signup %}
+	<section class="page" id="signup" data-theme="light" aria-labelledby="signup-title">
+		<div class="container page__inner page__inner--split">
+			<div class="page__text reveal">
+				<h2 class="page__name" id="signup-title">{{ g.title }}<img class="page__thumb" src="{{ g.thumb | relative_url }}" alt="" width="900" height="1200"></h2>
+				<p class="page__heading">{% for line in g.heading_lines %}<span>{{ line }}</span>{% endfor %}</p>
+				<p class="page__body">{% for line in g.text_lines %}<span>{{ line }}</span>{% endfor %}</p>
+				{% comment %} 앱 홈 A 단계 표시(Figma StepIndicator/Approval 16:199)와 같은 모양 {% endcomment %}
+				<ol class="steps" aria-label="주문하실 수 있기까지">
+					{% for step in g.steps %}
+					{% if forloop.index < g.current_step %}{% assign st = 'done' %}{% elsif forloop.index == g.current_step %}{% assign st = 'current' %}{% else %}{% assign st = 'next' %}{% endif %}
+					<li class="steps__item steps__item--{{ st }}"{% if st == 'current' %} aria-current="step"{% endif %}>
+						<span class="steps__dot" aria-hidden="true">{% if st == 'done' %}<svg viewBox="0 0 24 24" width="14" height="14"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>{% endif %}</span>
+						<span class="steps__label">{{ step }}</span>
+					</li>
+					{% endfor %}
+				</ol>
+			</div>
+			<figure class="page__media reveal">
+				<img src="{{ g.image | relative_url }}" alt="{{ g.image_alt }}" loading="lazy" width="1050" height="1400">
 			</figure>
 		</div>
 	</section>
 
-	{% if site.strip %}
-	<section class="strip" aria-label="매장에서 만드는 모습">
-		<ul class="container strip__list">
-			{% for img in site.strip %}
-			<li><img src="{{ img.src | relative_url }}" alt="{{ img.alt }}" loading="lazy" width="640" height="640"></li>
-			{% endfor %}
-		</ul>
-	</section>
-	{% endif %}
-
-	{% assign a = site.about %}
-	<section class="story" id="about">
-		<div class="container">
-			<h2 class="story__heading">{% for line in a.heading_lines %}<span>{{ line }}</span>{% endfor %}</h2>
-			<div class="story__row">
-				<div class="story__photos">
-					{% for img in a.images %}
-					<img src="{{ img.src | relative_url }}" alt="{{ img.alt }}" loading="lazy" width="800" height="1000">
-					{% endfor %}
-				</div>
-				<div class="story__text">
-					<h3 class="story__title">{{ a.title }}</h3>
-					{% for p in a.paragraphs %}<p>{{ p }}</p>{% endfor %}
-					{% if a.highlight %}
-					<p class="story__highlight"><strong>{{ a.highlight }}</strong><span>{{ a.highlight_text }}</span></p>
-					{% endif %}
-				</div>
+	{% assign o = site.ordersheet %}
+	<section class="page page--accent" id="ordersheet" data-theme="light" aria-labelledby="ordersheet-title">
+		<div class="container page__inner page__inner--split">
+			<div class="page__text reveal">
+				<h2 class="page__name" id="ordersheet-title">{{ o.title }}<img class="page__thumb" src="{{ o.thumb | relative_url }}" alt="" width="450" height="600"></h2>
+				<p class="page__heading">{% for line in o.heading_lines %}<span>{{ line }}</span>{% endfor %}</p>
+				<p class="page__body">{% for line in o.text_lines %}<span>{{ line }}</span>{% endfor %}</p>
 			</div>
+			<figure class="device device--large reveal">
+				<img src="{{ o.device | relative_url }}" alt="{{ o.device_alt }}" loading="lazy" width="783" height="1600">
+			</figure>
 		</div>
 	</section>
 
-	{% assign v = site.values %}
-	<section class="promise">
-		<div class="container">
-			<h2 class="section__title">{{ v.title }}</h2>
-			<ol class="promise__list">
-				{% for item in v.items %}
-				<li class="promise__item">
-					<span class="promise__num">{{ forloop.index | prepend: '0' | slice: -2, 2 }}</span>
-					<h3>{{ item.title }}</h3>
-					<p>{{ item.text }}</p>
+	{% assign h = site.howto %}
+	<section class="page" id="howto" data-theme="light" aria-labelledby="howto-title">
+		<div class="container page__inner page__inner--stack">
+			<h2 class="page__heading page__heading--center reveal" id="howto-title">{{ h.title }}</h2>
+			<ul class="howto reveal">
+				{% for item in h.items %}
+				<li class="howto__item">
+					<img class="howto__device" src="{{ item.device | relative_url }}" alt="{{ item.alt }}" loading="lazy" width="783" height="1600">
+					<p class="howto__text">{{ item.text | newline_to_br }}</p>
 				</li>
 				{% endfor %}
-			</ol>
+			</ul>
 		</div>
 	</section>
 
-	{% assign g = site.gallery %}
-	<section class="food" id="food">
-		<div class="container">
-			<h2 class="section__title section__title--center">{{ g.title }}</h2>
-			{% if g.subtitle %}<p class="section__subtitle">{{ g.subtitle }}</p>{% endif %}
-			{% comment %}
-				엇갈린 열 배치. 데스크톱은 4열, 모바일은 2열 마크업을 따로 두고 화면 폭에 따라 하나만 보인다.
-				칸마다 (행 + 열)이 짝수면 세로로 긴 사진, 홀수면 짧은 사진.
-			{% endcomment %}
-			{% for cols in (2..4) %}{% if cols == 3 %}{% continue %}{% endif %}
-			{% assign per = g.items.size | divided_by: cols %}
-			<div class="food__grid food__grid--{{ cols }}">
-				{% for c in (1..cols) %}
-				{% assign col = c | minus: 1 %}
-				<div class="food__col">
-					{% for r in (1..per) %}
-					{% assign row = r | minus: 1 %}
-					{% assign idx = col | times: per | plus: row %}
-					{% assign item = g.items[idx] %}
-					{% assign parity = row | plus: col | modulo: 2 %}
-					<img class="{% if parity == 0 %}is-tall{% else %}is-short{% endif %}" src="{{ item.src | relative_url }}" alt="{{ item.alt }}" loading="lazy" width="700" height="700">
-					{% endfor %}
-				</div>
-				{% endfor %}
+	{% assign p = site.pickup %}
+	<section class="page page--dark" id="pickup" data-theme="dark" aria-labelledby="pickup-title">
+		<div class="container page__inner page__inner--split">
+			<div class="page__text reveal">
+				<h2 class="page__name" id="pickup-title">{{ p.title }}</h2>
+				<p class="page__heading">{% for line in p.heading_lines %}<span>{{ line }}</span>{% endfor %}</p>
+				<p class="page__body">{% for line in p.text_lines %}<span>{{ line }}</span>{% endfor %}</p>
 			</div>
-			{% endfor %}
+			<figure class="page__media reveal">
+				<img src="{{ p.image | relative_url }}" alt="{{ p.image_alt }}" loading="lazy" width="923" height="1154">
+			</figure>
 		</div>
 	</section>
 
-	<section class="visit" id="location">
-		<div class="container">
-			<div class="visit__row">
-				<figure class="visit__figure">
-					<img src="{{ l.image | relative_url }}" alt="{{ l.image_alt }}" loading="lazy" width="1000" height="750">
-					{% if l.image_caption %}<figcaption>{{ l.image_caption }}</figcaption>{% endif %}
-				</figure>
-				<div class="visit__text">
-					<h2 class="visit__title">{{ l.title }}</h2>
-					<dl class="visit__info">
-						<div><dt>{% include icon.html name="map-pin" %}</dt><dd><span>주소</span>{{ l.road_address }}{% if l.lot_address %}<br>(지번) {{ l.lot_address }}{% endif %}</dd></div>
-						<div><dt>{% include icon.html name="phone" %}</dt><dd><span>전화</span><a href="tel:{{ l.phone | remove: '-' }}">{{ l.phone }}</a></dd></div>
-						{% if l.hours %}<div><dt>{% include icon.html name="clock" %}</dt><dd><span>영업시간</span>{{ l.hours }}</dd></div>{% endif %}
-						{% if l.parking %}<div><dt>{% include icon.html name="parking" %}</dt><dd><span>주차</span>{{ l.parking }}</dd></div>{% endif %}
-						{% if l.transit %}<div><dt>{% include icon.html name="train" %}</dt><dd><span>대중교통</span>{{ l.transit }}</dd></div>{% endif %}
-					</dl>
-					<div class="visit__actions">
-						<a class="btn btn--primary" href="{{ l.naver_map_url }}" target="_blank" rel="noopener">{% include icon.html name="map" %} 네이버 지도</a>
-						<a class="btn btn--ghost" href="tel:{{ l.phone | remove: '-' }}">{% include icon.html name="phone" %} 전화하기</a>
-					</div>
-				</div>
+	{% assign m = site.menu %}
+	<section class="page page--accent" id="menu" data-theme="light" aria-labelledby="menu-title">
+		<div class="container page__inner page__inner--stack">
+			<div class="reveal">
+				<h2 class="page__heading" id="menu-title">{{ m.title }}</h2>
+				<p class="page__sub">{{ m.subtitle }}</p>
 			</div>
-			<div class="map" id="map" aria-label="엘리키친 위치 지도">
-				{% unless l.naver_map_key_id %}
-				<iframe class="map__fallback" src="https://www.google.com/maps/embed?origin=mfe&pb=!1m3!2m1!1s{{ l.lat }},{{ l.lng }}!6i17!3m1!1sko!5m1!1sko" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="엘리키친 위치 지도"></iframe>
-				{% endunless %}
-			</div>
+			<ul class="menuGrid reveal">
+				{% for item in m.items %}<li><img src="{{ item.src | relative_url }}" alt="{{ item.alt }}" loading="lazy" width="675" height="900"></li>{% endfor %}
+			</ul>
+			<p class="page__notice">· {{ m.notice }}</p>
 		</div>
+	</section>
+
+	{% assign l = site.location %}
+	<section class="page page--last" id="location" data-theme="light" aria-labelledby="location-title">
+		<div class="container page__inner page__inner--split">
+			<div class="page__text reveal">
+				<h2 class="page__name" id="location-title">{{ l.title }}</h2>
+				<p class="page__store">{{ l.store_name }}</p>
+				<dl class="visitInfo">
+					<div><dt>매장 위치</dt><dd>{{ l.road_address }}</dd></div>
+					{% if l.parking %}<div><dt>주차</dt><dd>{{ l.parking }}</dd></div>{% endif %}
+					{% if l.transit %}<div><dt>오시는 길</dt><dd>{{ l.transit }}</dd></div>{% endif %}
+					{% if l.hours %}<div><dt>영업시간</dt><dd>{{ l.hours }}</dd></div>{% endif %}
+					<div><dt>문의</dt><dd><a href="tel:{{ l.phone | remove: '-' }}">{{ l.phone }}</a></dd></div>
+				</dl>
+				<a class="pill" href="{{ l.naver_map_url }}" target="_blank" rel="noopener">네이버 지도에서 보기</a>
+			</div>
+			<figure class="page__media reveal">
+				<img src="{{ l.image | relative_url }}" alt="{{ l.image_alt }}" loading="lazy" width="1000" height="750">
+			</figure>
+		</div>
+		{% include footer.html %}
 	</section>
 </main>
-<script>
-	// 섹션 주소(/about, /food, /location): 같은 페이지 안에서 스크롤하고 주소창만 바꾼다
-	(function () {
-		var SECTIONS = ['about', 'food', 'location'];
-		function scrollToSection(section, behavior) {
-			var el = section && document.getElementById(section);
-			if (el) el.scrollIntoView({ behavior: behavior });
-			else window.scrollTo({ top: 0, behavior: behavior });
-		}
-		document.addEventListener('click', function (e) {
-			var a = e.target.closest('a[data-section]');
-			if (!a || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
-			e.preventDefault();
-			var section = a.dataset.section;
-			var path = '/' + section;
-			if (location.pathname !== path) history.pushState(null, '', path);
-			scrollToSection(section);
-		});
-		// 예전 주소(/#about)로 들어오면 /about 으로 바꿔 준다
-		var hash = location.hash.slice(1);
-		var start = '{{ page.section }}';
-		if (SECTIONS.indexOf(hash) !== -1) {
-			start = hash;
-			history.replaceState(null, '', '/' + hash);
-		}
-		if (start) scrollToSection(start, 'instant');
-	})();
-</script>
-{% if l.naver_map_key_id %}
-<script>
-	window.navermap_authFailure = function () {
-		// 키 인증 실패 시 구글 지도로 대체
-		document.getElementById('map').innerHTML = '<iframe class="map__fallback" src="https://www.google.com/maps/embed?origin=mfe&pb=!1m3!2m1!1s{{ l.lat }},{{ l.lng }}!6i17!3m1!1sko!5m1!1sko" title="엘리키친 위치 지도"></iframe>';
-	};
-	function initEllyMap() {
-		var pos = new naver.maps.LatLng({{ l.lat }}, {{ l.lng }});
-		var map = new naver.maps.Map('map', { center: pos, zoom: 17, scrollWheel: false, mapDataControl: false });
-		var marker = new naver.maps.Marker({ position: pos, map: map, title: '{{ site.brand.name }}' });
-		var info = new naver.maps.InfoWindow({
-			content: '<div class="map__info"><strong>{{ site.brand.name }}</strong><br>{{ l.road_address }}<br><a href="{{ l.naver_map_url }}" target="_blank" rel="noopener">네이버 지도에서 보기</a></div>',
-			borderWidth: 0, backgroundColor: 'transparent', disableAnchor: true
-		});
-		info.open(map, marker);
-		naver.maps.Event.addListener(marker, 'click', function () { info.getMap() ? info.close() : info.open(map, marker); });
-	}
-</script>
-<script src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId={{ l.naver_map_key_id }}&callback=initEllyMap" defer></script>
-{% endif %}
 
-{% include footer.html %}
+{% comment %} 오른쪽 섹션 표시. 마우스를 올리면 섹션 이름 목록으로 펼쳐지고, 누르면 그 섹션으로 간다. {% endcomment %}
+<nav class="pager" aria-label="섹션 바로가기">
+	<ol>
+		{% for sec in site.sections %}
+		<li><a class="pager__link" href="#{{ sec.id }}" data-target="{{ sec.id }}" aria-label="{{ sec.label }}"><span class="pager__bar" aria-hidden="true"></span><span class="pager__label">{{ sec.label }}</span></a></li>
+		{% endfor %}
+	</ol>
+</nav>
+<a class="scrollHint" href="#story" aria-label="다음 섹션으로">
+	<svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+</a>
+
+<script>
+(function () {
+	var pages = Array.prototype.slice.call(document.querySelectorAll('.page'));
+	var pagerLinks = Array.prototype.slice.call(document.querySelectorAll('.pager__link'));
+	var hint = document.querySelector('.scrollHint');
+	var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+	// 예전 주소(/about 등)와 섹션 id 짝
+	var PATHS = { about: 'story', food: 'menu', location: 'location' };
+	var SECTION_PATH = { story: '/about', menu: '/food', location: '/location' };
+
+	function behavior() { return reduce.matches ? 'auto' : 'smooth'; }
+	function indexOfCurrent() {
+		var mid = window.innerHeight / 2, idx = 0;
+		pages.forEach(function (p, i) { if (p.getBoundingClientRect().top <= mid) idx = i; });
+		return idx;
+	}
+	function go(i) {
+		i = Math.max(0, Math.min(pages.length - 1, i));
+		pages[i].scrollIntoView({ behavior: behavior() });
+	}
+
+	// 지금 섹션에 맞춰 헤더 글자색·섹션 표시·↓ 힌트를 바꾼다
+	var current = -1;
+	function update() {
+		var i = indexOfCurrent();
+		if (i === current) return;
+		current = i;
+		document.body.setAttribute('data-theme', pages[i].getAttribute('data-theme'));
+		pagerLinks.forEach(function (a, k) {
+			if (k === i) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current');
+		});
+		var next = pages[i + 1];
+		if (next) { hint.hidden = false; hint.setAttribute('href', '#' + next.id); hint.setAttribute('data-target', next.id); } else { hint.hidden = true; }
+	}
+	window.addEventListener('scroll', update, { passive: true });
+	window.addEventListener('resize', update);
+
+	// 섹션 글이 아래에서 올라오며 나타난다(움직임 줄이기 설정이면 CSS에서 바로 보임 — KS X 3253 6.2.2)
+	if ('IntersectionObserver' in window) {
+		var io = new IntersectionObserver(function (entries) {
+			entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); } });
+		}, { threshold: 0.15 });
+		document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
+	} else {
+		document.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('is-in'); });
+	}
+
+	// 데스크톱에서 휠 한 번에 한 섹션. 섹션 내용이 화면보다 길면(글자 확대·작은 창) 보통 스크롤로 둔다 — 내용이 잘려 못 보는 일이 없게(KS X 3253 5.4.5·5.4.7).
+	var fine = window.matchMedia('(hover: hover) and (pointer: fine) and (min-width: 1024px)');
+	var locked = false;
+	function allFit() {
+		return pages.every(function (p) { return p.classList.contains('page--last') || p.scrollHeight <= window.innerHeight + 1; });
+	}
+	window.addEventListener('wheel', function (e) {
+		if (!fine.matches || e.ctrlKey || Math.abs(e.deltaY) < 4 || !allFit()) return;
+		var i = indexOfCurrent();
+		var last = pages[pages.length - 1];
+		// 마지막 섹션(오시는 길 + 바닥글) 안에서는 보통 스크롤. 맨 위에서 위로 굴릴 때만 앞 섹션으로 넘긴다.
+		if (i === pages.length - 1 && (e.deltaY > 0 || last.getBoundingClientRect().top < -1)) return;
+		e.preventDefault();
+		if (locked) return;
+		locked = true;
+		go(i + (e.deltaY > 0 ? 1 : -1));
+		setTimeout(function () { locked = false; }, reduce.matches ? 300 : 900);
+	}, { passive: false });
+
+	// 섹션 표시·헤더 메뉴·↓ 누르기: 페이지 안에서 이동하고 주소만 바꾼다. 화면 읽기·키보드도 그 섹션으로 옮겨 간다.
+	document.addEventListener('click', function (e) {
+		var a = e.target.closest('a[data-target]');
+		if (!a || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
+		var id = a.getAttribute('data-target');
+		var el = document.getElementById(id);
+		if (!el) return;
+		e.preventDefault();
+		if (window.ellyCloseMenu) window.ellyCloseMenu();
+		// 예전 주소가 있는 섹션은 /about 등, 나머지는 /#signup처럼 해시로 남겨 새로고침·공유해도 그 섹션이 열리게
+		var path = SECTION_PATH[id] || (id === 'home' ? '/' : '/#' + id);
+		if (location.pathname + location.hash !== path) history.pushState(null, '', path);
+		el.scrollIntoView({ behavior: behavior() });
+		el.setAttribute('tabindex', '-1');
+		el.focus({ preventScroll: true });
+	});
+
+	// 주소에 맞는 섹션 id: /about 등 예전 주소, 또는 #signup 같은 섹션 id
+	function targetOf(name) {
+		if (PATHS[name]) return PATHS[name];
+		return name && document.getElementById(name) && document.getElementById(name).classList.contains('page') ? name : null;
+	}
+
+	// 처음 들어온 주소에 맞는 섹션으로 (예전 /#about 주소는 /about으로 바꿔 준다)
+	var hash = location.hash.slice(1);
+	var start = targetOf(hash) || targetOf('{{ page.section }}');
+	if (PATHS[hash]) history.replaceState(null, '', '/' + hash);
+	if (start) document.getElementById(start).scrollIntoView({ behavior: 'auto' });
+
+	// 뒤로·앞으로 가기: 바뀐 주소의 섹션으로 다시 간다
+	window.addEventListener('popstate', function () {
+		var id = targetOf(location.pathname.replace(/^\//, '')) || targetOf(location.hash.slice(1)) || 'home';
+		document.getElementById(id).scrollIntoView({ behavior: behavior() });
+	});
+	update();
+})();
+</script>
 </body>
 </html>
