@@ -10,7 +10,7 @@ Jekyll 정적 사이트이며 GitHub Pages로 배포합니다. Emil Baehr의 [Au
 
 | 섹션 (id) | 내용 |
 |---|---|
-| 앱 받기 (`home`) | 전골 밀키트 사진, 앱 홈 소개 문구, App Store·Google Play 배지 |
+| 앱 다운로드 (`home`) | 전골 밀키트 사진, 앱 홈 소개 문구, App Store·Google Play 배지 |
 | 엘리키친 (`story`) | 큰 이름, 소개 문단, 원형 음식 사진 6장 |
 | 가입 (`signup`) | 가입 뒤 매장 확인 안내, 앱과 같은 단계 표시(가입 완료 → 매장 준비 → 주문 가능) |
 | 주문서 (`ordersheet`) | 주문서 안내(1인 주방이라 수량이 정해져 있음), 앱 홈 화면 |
