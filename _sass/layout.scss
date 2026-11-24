@@ -227,16 +227,19 @@ body.home[data-theme="dark"] .siteHeader--overlay {
 		width: 100%;
 		max-width: 540px;
 
+		// 매장 사진은 자르지 않고 원래 비율 그대로 보여 준다(매장 전체가 보이게, 사용자 요청 2026-11-24)
 		img {
-			width: 100%;
-			aspect-ratio: 27 / 32;
-			object-fit: cover;
+			display: block;
+			margin-left: auto;
+			width: auto;
+			max-width: 100%;
+			height: auto;
 			border-radius: 32px;
 		}
 	}
 }
 
-// ── 앱 받기 배지 (흰 바탕 152×54, 둥근 12) ──
+// ── 앱 다운로드 배지 (흰 바탕 152×54, 둥근 12) ──
 .storeBadges {
 	display: flex;
 	flex-wrap: wrap;
@@ -679,7 +682,7 @@ body.home[data-theme="dark"] .scrollHint { color: $app-surface; }
 		&__sub { font-size: 1.6rem; }
 		&__store { font-size: 2.4rem; }
 		&__notice { font-size: 1.3rem; }
-		&__media { justify-self: stretch; max-width: none; img { aspect-ratio: 4 / 3; border-radius: 24px; } }
+		&__media { justify-self: stretch; max-width: none; img { margin: 0 auto; max-height: 70vh; border-radius: 24px; } }
 	}
 
 	.bubbles {

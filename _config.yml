@@ -31,7 +31,7 @@ app:
 # 예전 주소 /about·/food·/location은 각각 story·menu·location 섹션으로 이어진다.
 sections:
   - id: home
-    label: 앱 받기
+    label: 앱 다운로드
   - id: story
     label: 엘리키친
   - id: signup
