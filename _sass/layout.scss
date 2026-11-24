@@ -438,10 +438,13 @@ body.home[data-theme="dark"] .siteHeader--overlay {
 	&__privacy { font-weight: 700; }
 }
 
-// ── 오른쪽 섹션 표시 (짧은 선, 마우스를 올리면 이름 목록) ──
+// ── 오른쪽 섹션 표시 (앱 단계 표시처럼 점을 선으로 이은 모양) ──
+// 점 하나 = 섹션 하나. 지금 섹션은 큰 점 + 이름 알약이 늘 보이고,
+// 마우스를 올리거나 키보드로 들어오면 다른 섹션 이름도 알약으로 나온다.
+// 알약은 밝은 바탕이라 사진·주황·어두운 섹션 위에서도 글자가 잘 읽힌다(KS X 3253 5.4.3).
 .pager {
 	position: fixed;
-	right: 40px;
+	right: 32px;
 	top: 50%;
 	transform: translateY(-50%);
 	z-index: 15;
@@ -449,57 +452,98 @@ body.home[data-theme="dark"] .siteHeader--overlay {
 	transition: color 0.3s ease;
 
 	ol {
+		position: relative;
 		display: flex;
 		flex-direction: column;
 		align-items: flex-end;
-		gap: 2px;
-		padding: 12px;
-		border-radius: 16px;
-		transition: background-color 0.2s ease;
+		gap: 6px;
+	}
+
+	// 점들을 잇는 세로 선 (점 칸 14px의 가운데)
+	ol::before {
+		content: "";
+		position: absolute;
+		top: 12px;
+		bottom: 12px;
+		right: 6px;
+		width: 2px;
+		border-radius: 1px;
+		background: currentColor;
+		opacity: 0.25;
 	}
 
 	&__link {
+		position: relative;
 		display: flex;
 		align-items: center;
 		justify-content: flex-end;
-		gap: 12px;
-		min-height: 24px;
+		gap: 10px;
+		min-height: 24px; // 누르는 크기 24 이상 (KS X 3253 6.1.2)
 		color: inherit;
 
 		&:hover { text-decoration: none; }
-		&:focus-visible { outline: 2px solid $app-accent; outline-offset: 2px; }
+		&:focus-visible { outline: 2px solid $app-accent; outline-offset: 2px; border-radius: 999px; }
 	}
 
+	// 점 칸은 14px로 고정해 점 크기가 바뀌어도 선이 가운데를 지나게 한다
 	&__bar {
-		width: 12px;
-		height: 3px;
-		border-radius: 2px;
-		background: currentColor;
-		opacity: 0.35;
+		flex: none;
+		width: 14px;
+		height: 14px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+
+		&::after {
+			content: "";
+			width: 8px;
+			height: 8px;
+			border-radius: 50%;
+			background: currentColor;
+			opacity: 0.45;
+			transition: width 0.2s ease, height 0.2s ease, opacity 0.2s ease;
+		}
 	}
 
-	&__link[aria-current] &__bar { width: 20px; opacity: 1; }
+	&__link[aria-current] &__bar::after {
+		width: 14px;
+		height: 14px;
+		opacity: 1;
+		box-shadow: 0 0 0 3px rgba($app-accent, 0.55);
+	}
+
+	&__link:hover &__bar::after { opacity: 1; }
 
 	&__label {
-		display: none;
-		font-size: 1.5rem;
+		padding: 4px 12px;
+		border-radius: 999px;
+		background: $app-surface;
+		color: $app-on;
+		font-size: 1.3rem;
 		font-weight: 500;
 		white-space: nowrap;
+		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+		opacity: 0;
+		transform: translateX(6px);
+		pointer-events: none;
+		transition: opacity 0.2s ease, transform 0.2s ease;
 	}
 
-	// 마우스를 올리거나 키보드로 들어오면 이름 목록으로 펼친다
-	&:hover ol,
-	&:focus-within ol {
+	// 지금 섹션 이름은 늘 보인다
+	&__link[aria-current] &__label {
+		opacity: 1;
+		transform: none;
+		font-weight: 700;
 		background: $app-inverse;
 		color: $app-on-inverse;
 	}
 
 	&:hover &__label,
-	&:focus-within &__label { display: inline; opacity: 0.6; }
-	&:hover &__link[aria-current] &__label,
-	&:focus-within &__link[aria-current] &__label { opacity: 1; font-weight: 700; }
-	&:hover &__bar,
-	&:focus-within &__bar { display: none; }
+	&:focus-within &__label { opacity: 1; transform: none; pointer-events: auto; }
+
+	@media (prefers-reduced-motion: reduce) {
+		&__bar::after, &__label { transition: none; }
+	}
 }
 
 body.home[data-theme="dark"] .pager { color: $app-surface; }
