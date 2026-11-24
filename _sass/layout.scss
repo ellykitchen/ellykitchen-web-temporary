@@ -1,766 +1,735 @@
+// 메인 한 페이지 (2026-11-24 리뉴얼, Figma "17 소개 웹 · 리뉴얼 시안" 4안 1162:46·모바일 1169:736)
+// 배민 웹처럼 섹션마다 화면 높이를 채운다. 색은 앱 디자인 시스템(Figma Color 변수)과 같다.
+$app-surface: #f6f0e6;        // surface
+$app-on: #3a3633;             // onSurface
+$app-on-variant: #6d665f;     // onSurfaceVariant
+$app-high: #efe5d4;           // surfaceContainerHigh
+$app-inverse: #382f28;        // inverseSurface
+$app-on-inverse: #feeee4;     // onInverseSurface
+$app-accent: #ee8a2e;         // accent
+$app-on-accent: #1c140c;      // onAccent
+$app-outline-variant: #d6c3b7;// outlineVariant
+$app-success: #3e7b3a;        // success
+$header-h: 90px;
+$header-h-mobile: 56px;
+$desktop: 1024px;
+
 // ── 헤더 ──
 .siteHeader {
 	position: sticky;
 	top: 0;
-	z-index: 10;
-	background: rgba($cream, 0.92);
-	backdrop-filter: blur(10px);
-	-webkit-backdrop-filter: blur(10px);
-	border-bottom: 1px solid $line;
+	z-index: 20;
+	background: $app-surface;
+	color: $app-on;
+	transition: color 0.3s ease;
+
+	&--overlay {
+		position: fixed;
+		left: 0;
+		right: 0;
+		background: transparent;
+	}
 
 	&__inner {
-		position: relative;
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		height: 80px;
+		height: $header-h;
 	}
 
-	// 가운데 워드마크
 	&__brand {
-		position: absolute;
-		left: 50%;
-		transform: translateX(-50%);
-		display: flex;
-		align-items: center;
-		gap: 10px;
-		color: $text;
-
-		&:hover {
-			text-decoration: none;
-		}
-	}
-
-	&__icon {
-		width: 36px;
-		height: 36px;
-		border-radius: 9px;
-	}
-
-	&__name {
+		font-size: 2.6rem;
 		font-weight: 700;
-		font-size: 2.2rem;
-		letter-spacing: -0.01em;
-		color: $text;
-	}
-
-	&__nav {
-		display: flex;
-		align-items: center;
-		gap: 32px;
-
-		a {
-			color: $text;
-			font-weight: 500;
-			font-size: 1.6rem;
-
-			&:hover {
-				color: $accent-dark;
-				text-decoration: none;
-			}
-		}
-	}
-
-	&__phoneShort {
-		display: none;
-	}
-}
-
-@media (max-width: 760px) {
-	.siteHeader {
-		&__inner {
-			height: 64px;
-		}
-
-		&__nav {
-			display: none;
-		}
-
-		&__brand {
-			position: static;
-			transform: none;
-		}
-
-		&__icon {
-			width: 32px;
-			height: 32px;
-		}
-
-		&__name {
-			font-size: 2rem;
-		}
-
-		&__phone {
-			display: none;
-		}
-
-		&__phoneShort {
-			display: inline;
-		}
-	}
-}
-
-// ── 히어로 ──
-.hero {
-	padding: 48px 0 72px;
-	overflow: hidden;
-
-	&__inner {
-		display: grid;
-		grid-template-columns: minmax(0, 1fr) 520px;
-		gap: 80px;
-		align-items: center;
-	}
-
-	&__eyebrow {
-		display: inline-block;
-		font-size: 1.4rem;
-		font-weight: 500;
-		color: $accent-dark;
-		background: $tint;
-		padding: 6px 14px;
-		border-radius: 999px;
-		margin-bottom: 28px;
-	}
-
-	&__title {
-		font-size: 5.6rem;
-		line-height: 1.28;
+		color: inherit;
 		letter-spacing: -0.02em;
-		color: $text;
-		margin-bottom: 28px;
 
-		span {
-			display: block;
-		}
-	}
-
-	&__lead {
-		font-size: 1.9rem;
-		color: $text-muted;
-		margin-bottom: 28px;
-	}
-
-	&__actions {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 12px;
-	}
-
-	&__facts {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 10px 28px;
-		margin-top: 28px;
-		padding-top: 24px;
-		border-top: 1px solid $line;
-		font-size: 1.4rem;
-
-		li {
-			display: flex;
-			align-items: center;
-			gap: 8px;
-		}
-
-		.icon {
-			color: $accent-dark;
-			font-size: 1.8rem;
-		}
-	}
-
-	// 가게 입구의 아치를 따라 윗부분을 반원으로
-	&__figure {
-		margin: 0;
-
-		img {
-			width: 100%;
-			aspect-ratio: 520 / 640;
-			object-fit: cover;
-			border-radius: 50% 50% 28px 28px / 40.6% 40.6% 28px 28px;
-		}
-	}
-}
-
-@media (max-width: 900px) {
-	.hero {
-		padding: 16px 0 56px;
-
-		&__inner {
-			grid-template-columns: 1fr;
-			gap: 32px;
-		}
-
-		&__figure {
-			order: -1;
-
-			img {
-				aspect-ratio: 350 / 420;
-				border-radius: 50% 50% 20px 20px / 41.7% 41.7% 20px 20px;
-			}
-		}
-
-		&__title {
-			font-size: 3.4rem;
-		}
-
-		&__lead {
-			font-size: 1.6rem;
-		}
-
-		&__facts {
-			flex-direction: column;
-		}
-	}
-}
-
-// ── 사진 띠 (정사각형 사진을 크기·높이를 달리해 엇갈리게) ──
-.strip {
-	padding-bottom: 40px;
-
-	&__list {
-		display: flex;
-		justify-content: space-between;
-		align-items: flex-start;
-
-		li {
-			flex: none;
-		}
-
-		img {
-			width: 100%;
-			aspect-ratio: 1 / 1;
-			object-fit: cover;
-			border-radius: 12px;
-		}
-
-		// 시안 기준 본문 1200px 안의 크기와 세로 위치
-		li:nth-child(1) { width: 21.67%; margin-top: 30px; }
-		li:nth-child(2) { width: 17.5%;  margin-top: 170px; }
-		li:nth-child(3) { width: 20%;    margin-top: 10px; }
-		li:nth-child(4) { width: 17.5%;  margin-top: 190px; }
-		li:nth-child(5) { width: 15%;    margin-top: 70px; }
-	}
-}
-
-@media (max-width: 640px) {
-	.strip {
-		padding-bottom: 24px;
-
-		&__list {
-			display: grid;
-			grid-template-columns: 1fr 1fr;
-			gap: 20px;
-			align-items: start;
-
-			li:nth-child(n) { width: auto; margin-top: 0; }
-			li:nth-child(1) { width: 100%; }
-			li:nth-child(2) { width: 84%; margin-top: 30px; }
-			li:nth-child(3) { width: 89%; justify-self: end; }
-			li:nth-child(4) { width: 84%; }
-			li:nth-child(5) { display: none; }
-		}
-	}
-}
-
-// ── 엘리키친 이야기 ──
-.story {
-	padding: 120px 0;
-
-	&__heading {
-		font-size: 4.4rem;
-		line-height: 1.32;
-		letter-spacing: -0.015em;
-		text-align: center;
-		margin-bottom: 56px;
-
-		span {
-			display: block;
-		}
-	}
-
-	&__row {
-		display: grid;
-		grid-template-columns: 580px 520px;
-		justify-content: center;
-		gap: 64px;
-		align-items: center;
-	}
-
-	// 사진 두 장을 한 틀에
-	&__photos {
-		display: grid;
-		grid-template-columns: 1fr 1fr;
-		border-radius: 16px;
-		overflow: hidden;
-
-		img {
-			width: 100%;
-			aspect-ratio: 290 / 460;
-			object-fit: cover;
-		}
-	}
-
-	&__title {
-		font-size: 2.2rem;
-		color: $accent-dark;
-		margin-bottom: 20px;
-	}
-
-	&__text p {
-		font-size: 1.9rem;
-
-		& + p {
-			margin-top: 20px;
-		}
-	}
-
-	&__text &__highlight {
-		display: flex;
-		align-items: center;
-		gap: 14px;
-		margin-top: 24px;
-		padding-top: 20px;
-		border-top: 1px solid $line;
-
-		strong {
-			font-size: 4.4rem;
-			line-height: 1.2;
-			color: $accent;
-		}
-
-		span {
-			white-space: pre-line;
-			font-size: 1.6rem;
-			font-weight: 500;
-			line-height: 1.5;
-			color: $text-muted;
-		}
-	}
-}
-
-@media (max-width: 1160px) {
-	.story__row {
-		grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-		gap: 48px;
-	}
-}
-
-@media (max-width: 760px) {
-	.story {
-		padding: 64px 0;
-
-		&__heading {
-			font-size: 2.6rem;
-			margin-bottom: 28px;
-		}
-
-		&__row {
-			grid-template-columns: 1fr;
-			gap: 24px;
-		}
-
-		&__photos img {
-			aspect-ratio: 175 / 240;
-		}
-
-		&__text p {
-			font-size: 1.6rem;
-
-			& + p {
-				margin-top: 16px;
-			}
-		}
-
-		&__text &__highlight strong {
-			font-size: 3.4rem;
-		}
-	}
-}
-
-// ── 엘리키친의 약속 ──
-.promise {
-	background: $cream-deep;
-	padding: 104px 0;
-
-	.section__title {
-		font-size: 4.4rem;
-	}
-
-	&__list {
-		display: grid;
-		grid-template-columns: repeat(3, minmax(0, 1fr));
-		list-style: none;
-	}
-
-	&__item {
-		padding: 0 40px;
-
-		&:first-child {
-			padding-left: 0;
-		}
-
-		& + & {
-			border-left: 1px solid rgba($text, 0.18);
-		}
-
-		h3 {
-			font-size: 2.2rem;
-			margin: 12px 0 10px;
-		}
-
-		p {
-			color: $text-muted;
-		}
-	}
-
-	&__num {
-		display: block;
-		font-size: 4rem;
-		font-weight: 700;
-		line-height: 1.2;
-		color: $accent;
-	}
-}
-
-@media (max-width: 760px) {
-	.promise {
-		padding: 64px 0;
-
-		.section__title {
-			font-size: 2.6rem;
-			margin-bottom: 20px;
-		}
-
-		&__list {
-			grid-template-columns: 1fr;
-		}
-
-		&__item {
-			padding: 24px 0;
-			border-top: 1px solid rgba($text, 0.18);
-
-			& + & {
-				border-left: 0;
-			}
-		}
-	}
-}
-
-// ── 음식 사진 (엇갈린 열) ──
-.food {
-	background: $surface;
-	padding: 120px 0;
-
-	.section__title {
-		font-size: 4.4rem;
-	}
-
-	&__grid {
-		display: flex;
-		justify-content: center;
-		gap: 24px;
-
-		&--2 {
-			display: none;
-		}
-	}
-
-	&__col {
-		display: flex;
-		flex-direction: column;
-		gap: 24px;
-		flex: 0 1 282px;
-
-		&:nth-child(even) {
-			padding-top: 72px;
-		}
-
-		img {
-			width: 100%;
-			object-fit: cover;
-			border-radius: 12px;
-		}
-
-		.is-tall {
-			aspect-ratio: 282 / 360;
-		}
-
-		.is-short {
-			aspect-ratio: 282 / 280;
-		}
-	}
-}
-
-@media (max-width: 640px) {
-	.food {
-		padding: 64px 0;
-
-		.section__title {
-			font-size: 2.6rem;
-		}
-
-		&__grid {
-			gap: 16px;
-
-			&--4 {
-				display: none;
-			}
-
-			&--2 {
-				display: flex;
-			}
-		}
-
-		&__col {
-			flex: 1 1 0;
-			gap: 16px;
-
-			&:nth-child(even) {
-				padding-top: 40px;
-			}
-
-			img {
-				border-radius: 10px;
-			}
-
-			.is-tall {
-				aspect-ratio: 167 / 210;
-			}
-
-			.is-short {
-				aspect-ratio: 167 / 160;
-			}
-		}
-	}
-}
-
-// ── 오시는 길 ──
-.visit {
-	padding: 120px 0;
-
-	&__row {
-		display: grid;
-		grid-template-columns: 520px minmax(0, 1fr);
-		gap: 80px;
-		align-items: start;
-	}
-
-	&__figure {
-		margin: 0;
-
-		// 간판(엘리키친 EK)이 사진 오른쪽에 치우쳐 있어 오른쪽 위 기준으로 자른다
-		img {
-			width: 100%;
-			aspect-ratio: 520 / 513;
-			object-fit: cover;
-			object-position: right top;
-			border-radius: 144px 144px 12px 12px;
-		}
-
-		figcaption {
-			margin-top: 12px;
-			font-size: 1.3rem;
-			font-weight: 700;
-			letter-spacing: 0.12em;
-			color: $text-muted;
-		}
-	}
-
-	&__title {
-		font-size: 5.6rem;
-		line-height: 1.28;
-		letter-spacing: -0.02em;
-		margin-bottom: 28px;
-	}
-
-	&__info {
-		> div {
-			display: flex;
-			gap: 16px;
-			padding: 18px 0;
-			border-bottom: 1px solid $line;
-		}
-
-		dt {
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			flex: none;
-			width: 40px;
-			height: 40px;
-			border-radius: 12px;
-			background: $tint;
-			color: $accent-dark;
-			font-size: 2rem;
-		}
-
-		dd {
-			font-size: 1.6rem;
-			font-weight: 500;
-			line-height: 1.5;
-
-			span {
-				display: block;
-				font-size: 1.4rem;
-				font-weight: 400;
-				color: $text-muted;
-				margin-bottom: 2px;
-			}
-
-			a {
-				color: inherit;
-			}
-		}
-	}
-
-	&__actions {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 10px;
-		margin-top: 28px;
-	}
-}
-
-@media (max-width: 900px) {
-	.visit {
-		padding: 64px 0;
-
-		&__row {
-			grid-template-columns: 1fr;
-			gap: 28px;
-		}
-
-		&__figure {
-			order: 2;
-
-			img {
-				aspect-ratio: 350 / 300;
-				border-radius: 84px 84px 12px 12px;
-			}
-		}
-
-		&__title {
-			font-size: 3.4rem;
-			margin-bottom: 16px;
-		}
-	}
-}
-
-// ── 지도 ──
-.map {
-	margin-top: 56px;
-	height: 360px;
-	border-radius: 16px;
-	overflow: hidden;
-	background: $line;
-
-	&__fallback {
-		width: 100%;
-		height: 100%;
-		border: 0;
-		display: block;
-	}
-
-	&__info {
-		background: #fff;
-		border-radius: 12px;
-		padding: 12px 16px;
-		font-size: 1.4rem;
-		line-height: 1.5;
-		box-shadow: 0 8px 24px rgba($text, 0.18);
-		white-space: nowrap;
-
-		strong {
-			color: $charcoal;
-			font-size: 1.6rem;
-		}
-	}
-}
-
-@media (max-width: 760px) {
-	.map {
-		margin-top: 28px;
-		height: 260px;
-		border-radius: 12px;
-	}
-}
-
-// ── 푸터 (차콜 바탕, 큰 상호 + 사업자 정보) ──
-.siteFooter {
-	background: $charcoal;
-	color: $cream;
-	padding: 88px 0 40px;
-
-	&__name {
-		font-size: 10.4rem;
-		font-weight: 700;
-		line-height: 1.1;
-		letter-spacing: -0.04em;
-	}
-
-	&__info {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 16px 56px;
-		margin: 48px 0;
-
-		dt {
-			font-size: 1.4rem;
-			color: rgba($cream, 0.55);
-			margin-bottom: 4px;
-		}
-
-		dd {
-			font-size: 1.6rem;
-			font-weight: 500;
-		}
-
-		a {
-			color: inherit;
-		}
-	}
-
-	&__bottom {
-		display: flex;
-		flex-wrap: wrap;
-		justify-content: space-between;
-		align-items: center;
-		gap: 10px 24px;
-		padding-top: 24px;
-		border-top: 1px solid rgba($cream, 0.15);
-		font-size: 1.4rem;
-		color: rgba($cream, 0.55);
+		&:hover { text-decoration: none; }
 	}
 
 	&__links {
 		display: flex;
-		gap: 20px;
+		gap: 36px;
 
 		a {
-			display: inline-flex;
+			color: inherit;
+			font-size: 1.6rem;
+			font-weight: 600;
+		}
+	}
+
+	&__app,
+	&__toggle {
+		display: none;
+	}
+}
+
+// 메인에서 지금 섹션이 사진·어두운 바탕이면 헤더 글자를 밝게
+body.home[data-theme="dark"] .siteHeader--overlay {
+	color: $app-surface;
+}
+
+// ── 섹션 공통 ──
+.page {
+	position: relative;
+	min-height: 100vh;
+	min-height: 100svh;
+	display: flex;
+	align-items: center;
+	background: $app-surface;
+	color: $app-on;
+	overflow: hidden;
+
+	&:focus { outline: none; }
+
+	&--accent {
+		background: $app-accent;
+		color: $app-on-accent;
+	}
+
+	&--dark {
+		background: $app-inverse;
+		color: $app-on-inverse;
+	}
+
+	&--photo {
+		color: $app-surface;
+		background: $app-inverse;
+	}
+
+	&--last {
+		flex-direction: column;
+		align-items: stretch;
+		justify-content: space-between;
+	}
+
+	&__inner {
+		position: relative;
+		width: 100%;
+		padding-top: $header-h;
+		padding-bottom: 72px;
+
+		&--split {
+			display: grid;
+			grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+			gap: 64px;
 			align-items: center;
-			gap: 6px;
-			color: $accent;
+		}
+
+		&--stack {
+			display: flex;
+			flex-direction: column;
+			gap: 40px;
+		}
+	}
+
+	&__bg {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	&__scrim {
+		position: absolute;
+		inset: 0;
+		background: linear-gradient(90deg, rgba(28, 20, 13, 0.85) 0%, rgba(28, 20, 13, 0.1) 70%);
+	}
+
+	&__text {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 24px;
+		max-width: 640px;
+	}
+
+	&__kicker {
+		font-size: 2.2rem;
+		font-weight: 700;
+		color: $app-accent;
+	}
+
+	&__hero {
+		font-size: 8.4rem;
+		line-height: 1.22;
+		letter-spacing: -0.03em;
+		color: inherit;
+
+		span { display: block; }
+	}
+
+	&__lead {
+		font-size: 2.2rem;
+		font-weight: 500;
+		opacity: 0.9;
+	}
+
+	// 배민의 큰 서비스 이름 자리 (예: 음식배달)
+	&__name {
+		display: flex;
+		align-items: center;
+		gap: 20px;
+		font-size: 12rem;
+		line-height: 1.05;
+		letter-spacing: -0.03em;
+		color: inherit;
+	}
+
+	&__thumb {
+		width: 104px;
+		height: 104px;
+		border-radius: 50%;
+		object-fit: cover;
+	}
+
+	&__heading {
+		font-size: 6rem;
+		font-weight: 700;
+		line-height: 1.22;
+		letter-spacing: -0.03em;
+		color: inherit;
+
+		span { display: block; }
+
+		&--center { text-align: center; }
+	}
+
+	&__body {
+		font-size: 2rem;
+		font-weight: 500;
+		line-height: 1.6;
+
+		span { display: block; }
+	}
+
+	&__sub {
+		margin-top: 12px;
+		font-size: 2.4rem;
+		font-weight: 600;
+	}
+
+	&__store {
+		font-size: 4.8rem;
+		font-weight: 700;
+		letter-spacing: -0.03em;
+		line-height: 1.2;
+	}
+
+	&__notice {
+		font-size: 1.5rem;
+		font-weight: 500;
+		opacity: 0.85;
+	}
+
+	&__media {
+		justify-self: end;
+		width: 100%;
+		max-width: 540px;
+
+		img {
+			width: 100%;
+			aspect-ratio: 27 / 32;
+			object-fit: cover;
+			border-radius: 32px;
 		}
 	}
 }
 
-@media (max-width: 760px) {
-	.siteFooter {
-		padding: 56px 0 32px;
+// ── 앱 받기 배지 (배민: 흰 바탕 152×54, 둥근 12) ──
+.storeBadges {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+}
 
-		&__name {
-			font-size: 5.6rem;
+.storeBadge {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 152px;
+	height: 54px;
+	border-radius: 12px;
+	background: #fff;
+	box-shadow: inset 0 0 0 1px rgba($app-on, 0.08);
+	transition: transform 0.15s ease;
+
+	&:hover { transform: translateY(-1px); }
+	&:focus-visible { outline: 3px solid $app-accent; outline-offset: 3px; }
+}
+
+// ── 엘리키친: 원형 사진 묶음 ──
+.bubbles {
+	position: relative;
+	height: 640px;
+
+	&__item {
+		position: absolute;
+		border-radius: 50%;
+		overflow: hidden;
+
+		img { width: 100%; height: 100%; object-fit: cover; }
+
+		// 데스크톱 배치 (Figma 1162:91, 오른쪽 칸 기준)
+		&--1 { width: 300px; height: 300px; left: 4%;  top: 0; }
+		&--2 { width: 230px; height: 230px; left: 58%; top: 0; }
+		&--3 { width: 200px; height: 200px; left: 62%; top: 250px; }
+		&--4 { width: 250px; height: 250px; left: 10%; top: 330px; }
+		&--5 { width: 150px; height: 150px; left: 40%; top: 330px; }
+		&--6 { width: 220px; height: 220px; left: 52%; top: 470px; }
+	}
+}
+
+// ── 가입: 단계 표시 (앱 StepIndicator/Approval와 같은 모양) ──
+.steps {
+	display: flex;
+	align-items: flex-start;
+	margin-top: 8px;
+
+	&__item {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 10px;
+		min-width: 104px;
+		font-size: 1.8rem;
+		font-weight: 500;
+
+		// 다음 단계와 잇는 선 — 점의 세로 가운데에 맞춘다
+		&:not(:last-child)::after {
+			content: "";
+			position: absolute;
+			top: 13px;
+			left: calc(50% + 20px);
+			width: calc(100% - 40px);
+			height: 2px;
+			background: $app-outline-variant;
 		}
 
-		&__info {
-			flex-direction: column;
-			margin: 32px 0;
+		& + & { margin-left: 48px; }
+		&:not(:last-child)::after { width: calc(100% + 8px); }
+
+		&--done .steps__dot { background: $app-success; color: #fff; }
+		&--current { font-weight: 700; }
+		&--current .steps__dot { background: #fff; box-shadow: inset 0 0 0 3px $app-accent; }
+		&--current .steps__dot::after { content: ""; width: 12px; height: 12px; border-radius: 50%; background: $app-accent; }
+		&--next { color: $app-on-variant; }
+		&--next .steps__dot { background: #fff; box-shadow: inset 0 0 0 2px $app-outline-variant; }
+	}
+
+	&__dot {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 28px;
+		height: 28px;
+		border-radius: 50%;
+	}
+}
+
+// ── 주문서: 앱 화면 ──
+.device {
+	justify-self: center;
+
+	img { width: 100%; height: auto; }
+
+	&--large { width: 380px; }
+}
+
+// ── 주문 과정: 앱 화면 4장 ──
+.howto {
+	display: grid;
+	grid-template-columns: repeat(4, minmax(0, 1fr));
+	gap: 40px;
+	max-width: 1180px;
+	margin: 0 auto;
+
+	&__item {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 20px;
+	}
+
+	&__device { width: 100%; max-width: 257px; height: auto; }
+
+	&__text {
+		text-align: center;
+		font-size: 1.9rem;
+		font-weight: 700;
+		line-height: 1.4;
+	}
+}
+
+// ── 메뉴 사진 ──
+.menuGrid {
+	display: grid;
+	grid-template-columns: repeat(4, minmax(0, 1fr));
+	gap: 24px;
+
+	img {
+		width: 100%;
+		aspect-ratio: 282 / 230;
+		object-fit: cover;
+		border-radius: 20px;
+	}
+}
+
+// ── 오시는 길 ──
+.visitInfo {
+	display: grid;
+	gap: 14px;
+	font-size: 1.8rem;
+
+	div { display: flex; gap: 20px; }
+	dt { flex: 0 0 96px; font-weight: 700; }
+	dd { color: $app-on-variant; }
+	a { color: inherit; }
+}
+
+.pill {
+	display: inline-flex;
+	padding: 15px 26px;
+	border-radius: 999px;
+	background: $app-on;
+	color: #fff;
+	font-size: 1.7rem;
+	font-weight: 700;
+
+	&:hover { text-decoration: none; opacity: 0.9; }
+}
+
+// ── 바닥글 ──
+.siteFooter {
+	background: $app-high;
+	color: $app-on-variant;
+	padding: 36px 0;
+	font-size: 1.4rem;
+
+	&__name { font-size: 1.8rem; font-weight: 700; color: $app-on; margin-bottom: 12px; }
+
+	&__info {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 4px 24px;
+		line-height: 1.8;
+
+		div { display: flex; gap: 8px; }
+		dt { font-weight: 500; }
+		a { color: inherit; }
+	}
+
+	&__bottom {
+		display: flex;
+		justify-content: space-between;
+		flex-wrap: wrap;
+		gap: 12px;
+		margin-top: 16px;
+	}
+
+	&__links {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 24px;
+
+		a { color: $app-on; }
+	}
+
+	&__privacy { font-weight: 700; }
+}
+
+// ── 오른쪽 섹션 표시 (배민 Pagination: 짧은 선, 마우스를 올리면 이름 목록) ──
+.pager {
+	position: fixed;
+	right: 40px;
+	top: 50%;
+	transform: translateY(-50%);
+	z-index: 15;
+	color: $app-on;
+	transition: color 0.3s ease;
+
+	ol {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-end;
+		gap: 2px;
+		padding: 12px;
+		border-radius: 16px;
+		transition: background-color 0.2s ease;
+	}
+
+	&__link {
+		display: flex;
+		align-items: center;
+		justify-content: flex-end;
+		gap: 12px;
+		min-height: 24px;
+		color: inherit;
+
+		&:hover { text-decoration: none; }
+		&:focus-visible { outline: 2px solid $app-accent; outline-offset: 2px; }
+	}
+
+	&__bar {
+		width: 12px;
+		height: 3px;
+		border-radius: 2px;
+		background: currentColor;
+		opacity: 0.35;
+	}
+
+	&__link[aria-current] &__bar { width: 20px; opacity: 1; }
+
+	&__label {
+		display: none;
+		font-size: 1.5rem;
+		font-weight: 500;
+		white-space: nowrap;
+	}
+
+	// 마우스를 올리거나 키보드로 들어오면 이름 목록으로 펼친다
+	&:hover ol,
+	&:focus-within ol {
+		background: $app-inverse;
+		color: $app-on-inverse;
+	}
+
+	&:hover &__label,
+	&:focus-within &__label { display: inline; opacity: 0.6; }
+	&:hover &__link[aria-current] &__label,
+	&:focus-within &__link[aria-current] &__label { opacity: 1; font-weight: 700; }
+	&:hover &__bar,
+	&:focus-within &__bar { display: none; }
+}
+
+body.home[data-theme="dark"] .pager { color: $app-surface; }
+
+.scrollHint {
+	position: fixed;
+	left: 50%;
+	bottom: 20px;
+	transform: translateX(-50%);
+	z-index: 15;
+	display: flex;
+	padding: 8px;
+	color: $app-on;
+
+	&[hidden] { display: none; }
+}
+
+body.home[data-theme="dark"] .scrollHint { color: $app-surface; }
+
+// ── 나타나는 움직임 (배민: 섹션이 넘어오면 글이 아래에서 올라옴) ──
+.reveal {
+	opacity: 0;
+	transform: translateY(40px);
+	transition: opacity 0.7s ease, transform 0.7s ease;
+
+	&.is-in { opacity: 1; transform: none; }
+}
+
+// 움직임 줄이기 설정이면 움직이지 않고 바로 보인다 (KS X 3253 6.2.2)
+@media (prefers-reduced-motion: reduce) {
+	html { scroll-behavior: auto; }
+	.reveal { opacity: 1; transform: none; transition: none; }
+}
+
+// ── 좁은 화면 (모바일 390 시안 1169:736) ──
+@media (max-width: #{$desktop - 1px}) {
+	.siteHeader {
+		&__inner { height: $header-h-mobile; }
+		&__brand { font-size: 2rem; }
+
+		&__toggle {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: 48px;
+			height: 48px;
+			margin-right: -12px;
+			border: 0;
+			background: none;
+			color: inherit;
+			cursor: pointer;
 		}
 
-		&__bottom {
+		&__iconClose { display: none; }
+
+		// ☰ 메뉴 (Figma 1170:1335)
+		&__nav {
+			display: none;
+			position: fixed;
+			inset: $header-h-mobile 0 0 0;
+			padding: 32px 20px 40px;
+			background: $app-surface;
+			color: $app-on;
 			flex-direction: column;
-			align-items: flex-start;
+			justify-content: space-between;
+			overflow-y: auto;
+		}
+
+		&__links {
+			flex-direction: column;
+			gap: 0;
+
+			a {
+				display: flex;
+				justify-content: space-between;
+				padding: 18px 0;
+				border-bottom: 1px solid $app-outline-variant;
+				font-size: 2.4rem;
+				font-weight: 700;
+
+				&::after { content: "→"; font-weight: 500; color: $app-on-variant; }
+			}
+		}
+
+		&__app {
+			display: block;
+			margin-top: 32px;
+
+			p { font-size: 1.5rem; font-weight: 700; color: $app-on-variant; margin-bottom: 12px; }
 		}
 	}
+
+	body.menu-open {
+		overflow: hidden;
+
+		.siteHeader { color: $app-on; background: $app-surface; }
+		.siteHeader__nav { display: flex; }
+		.siteHeader__iconOpen { display: none; }
+		.siteHeader__iconClose { display: block; }
+	}
+
+	.pager { display: none; }
+	.scrollHint { display: none; }
+
+	.page {
+		min-height: 0;
+		align-items: stretch;
+
+		&--photo { min-height: 100vh; min-height: 100svh; align-items: flex-end; }
+
+		&__inner {
+			padding-top: $header-h-mobile + 34px;
+			padding-bottom: 48px;
+
+			&--split { grid-template-columns: minmax(0, 1fr); gap: 40px; }
+			&--stack { gap: 28px; }
+		}
+
+		&--photo &__inner { padding-bottom: 56px; }
+
+		&__scrim { background: linear-gradient(180deg, rgba(28, 20, 13, 0.05) 35%, rgba(28, 20, 13, 0.9) 100%); }
+
+		&__text { gap: 14px; }
+		&__kicker { font-size: 1.6rem; }
+		&__hero { font-size: 3.4rem; line-height: 1.25; }
+		&__lead { font-size: 1.6rem; }
+		&__name { font-size: 5.6rem; gap: 12px; }
+		&__thumb { width: 56px; height: 56px; }
+		&__heading { font-size: 2.8rem; line-height: 1.25; }
+		&__body { font-size: 1.5rem; }
+		&__sub { font-size: 1.6rem; }
+		&__store { font-size: 2.4rem; }
+		&__notice { font-size: 1.3rem; }
+		&__media { justify-self: stretch; max-width: none; img { aspect-ratio: 4 / 3; border-radius: 24px; } }
+	}
+
+	.bubbles {
+		height: 380px;
+
+		&__item {
+			&--1 { width: 170px; height: 170px; left: 0;   top: 0; }
+			&--2 { width: 130px; height: 130px; left: 48%; top: 0; }
+			&--3 { width: 110px; height: 110px; left: 66%; top: 140px; }
+			&--4 { width: 140px; height: 140px; left: 6%;  top: 180px; }
+			&--5 { width: 90px;  height: 90px;  left: 44%; top: 150px; }
+			&--6 { width: 120px; height: 120px; left: 42%; top: 250px; }
+		}
+	}
+
+	.steps {
+		&__item {
+			min-width: 0;
+			flex: 1;
+			font-size: 1.4rem;
+
+			& + & { margin-left: 0; }
+			&:not(:last-child)::after { left: calc(50% + 18px); width: calc(100% - 36px); }
+		}
+	}
+
+	.device--large { width: min(300px, 80%); }
+
+	// 주문 과정: 가로로 넘겨 보기
+	.howto {
+		display: flex;
+		gap: 16px;
+		margin: 0 -20px;
+		padding: 0 20px 8px;
+		overflow-x: auto;
+		scroll-snap-type: x mandatory;
+
+		&__item { flex: 0 0 62%; scroll-snap-align: start; }
+		&__text { font-size: 1.6rem; }
+	}
+
+	.menuGrid {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 10px;
+
+		img { aspect-ratio: 1 / 0.85; border-radius: 16px; }
+	}
+
+	.visitInfo {
+		font-size: 1.5rem;
+
+		div { flex-direction: column; gap: 2px; }
+		dt { flex: none; font-size: 1.4rem; }
+	}
+
+	.pill { justify-content: center; align-self: stretch; }
+
+	.siteFooter {
+		font-size: 1.3rem;
+
+		&__info { flex-direction: column; gap: 2px; }
+	}
+}
+
+// 메인은 헤더가 화면 위에 떠 있어 섹션으로 갈 때 위 여백이 필요 없다(약관 페이지는 base.scss의 80px 유지)
+html:has(body.home) { scroll-padding-top: 0; }
+
+// ── 화면 높이에 맞추기 (데스크톱에서 섹션이 창 높이를 넘지 않게 — 넘으면 휠 넘김이 꺼지고 보통 스크롤이 된다) ──
+@media (min-width: $desktop) {
+	.page__inner { padding-bottom: 56px; }
+	.page__text { max-width: 780px; }
+	.page__hero { font-size: clamp(5.6rem, min(5.8vw, 9vh), 8.4rem); }
+	.page__name { font-size: clamp(7.2rem, min(8vw, 13vh), 12rem); }
+	.page__heading { font-size: clamp(4rem, min(4.2vw, 6.6vh), 6rem); }
+	.page__media img { max-height: calc(100vh - 200px); }
+	.device--large { width: auto; }
+	.device--large img { width: auto; height: min(777px, calc(100vh - 170px)); }
+	.howto__device { max-height: calc(100vh - 360px); width: auto; }
+	.menuGrid img { aspect-ratio: auto; height: calc((100vh - 420px) / 2); max-height: 230px; }
+	.bubbles { height: min(640px, calc(100vh - 200px)); }
+}
+
+.pager ol { list-style: none; }
+
+// 배지 그림 (배민: 버튼 안 여백 14×19)
+.storeBadge__art { width: 114px; height: auto; }
+
+// 데스크톱: 글 칸을 조금 넓혀 두 줄 제목이 세 줄로 깨지지 않게
+@media (min-width: $desktop) {
+	.page__inner--split { grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr); }
+	.page__heading span { white-space: nowrap; }
+}
+
+// 단계 표시: 이름이 두 줄로 깨지지 않게, 모바일은 칸 폭을 꽉 채운다
+.steps__label { white-space: nowrap; }
+@media (max-width: #{$desktop - 1px}) {
+	.steps { width: 100%; max-width: 360px; }
 }

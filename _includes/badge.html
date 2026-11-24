@@ -1,0 +1,11 @@
+{%- comment -%}
+	스토어 배지 그림. 사용법: {% include badge.html store="apple" %} 또는 store="google".
+	배민 웹(baemin.com)처럼 흰 바탕 버튼(152×54, 둥근 12) 안에 공식 배지 그림을 넣는다.
+	그림 파일 assets/badges/appstore.png·playstore.png는 배민 웹에서 쓰는 배지 이미지를 받아 둔 것이다(사용자 결정 2026-11-24).
+	버튼 이름은 바깥 <a>의 aria-label이 맡으므로 그림은 화면 읽기에서 뺀다(alt="").
+{%- endcomment -%}
+{%- if include.store == "apple" -%}
+<img class="storeBadge__art" src="{{ '/assets/badges/appstore.png' | relative_url }}" alt="" width="229" height="53">
+{%- else -%}
+<img class="storeBadge__art" src="{{ '/assets/badges/playstore.png' | relative_url }}" alt="" width="252" height="60">
+{%- endif -%}

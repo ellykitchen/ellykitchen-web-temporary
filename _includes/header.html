@@ -1,14 +1,42 @@
-<header class="siteHeader">
+{% comment %}
+	머리글. 메인에서는 화면 위에 고정되고, 지금 섹션 바탕(사진·어두운 색 / 밝은 색)에 따라 글자색이 바뀐다(body[data-theme]).
+	메뉴는 메인의 섹션으로 이동한다(2026-11-24 한 페이지로 합침). 약관 페이지에서는 같은 주소로 메인에 들어간다.
+	좁은 화면에서는 ☰ 버튼으로 메뉴를 펼친다(Figma 1170:1335).
+{% endcomment %}
+{% assign nav = "about:story:엘리키친 이야기,food:menu:메뉴,location:location:오시는 길" | split: "," %}
+<header class="siteHeader{% if include.home %} siteHeader--overlay{% endif %}">
 	<div class="container siteHeader__inner">
-		<nav class="siteHeader__nav" aria-label="주요 메뉴">
-			<a href="/about" data-section="about">소개</a>
-			<a href="/food" data-section="food">음식</a>
-			<a href="/location" data-section="location">오시는 길</a>
+		<a class="siteHeader__brand" href="{{ '/' | relative_url }}"{% if include.home %} data-target="home"{% endif %}>{{ site.brand.name }}</a>
+		<nav class="siteHeader__nav" id="site-menu" aria-label="주요 메뉴">
+			<ul class="siteHeader__links">
+				{% for item in nav %}{% assign parts = item | split: ":" %}
+				<li><a href="/{{ parts[0] }}"{% if include.home %} data-target="{{ parts[1] }}"{% endif %}>{{ parts[2] }}</a></li>
+				{% endfor %}
+			</ul>
+			<div class="siteHeader__app">
+				<p>엘리키친 앱 받기</p>
+				<div class="storeBadges">
+					<a class="storeBadge" href="{{ site.app.app_store_url }}" target="_blank" rel="noopener" aria-label="App Store에서 엘리키친 앱 받기">{% include badge.html store="apple" %}</a>
+					<a class="storeBadge" href="{{ site.app.play_store_url }}" target="_blank" rel="noopener" aria-label="Google Play에서 엘리키친 앱 받기">{% include badge.html store="google" %}</a>
+				</div>
+			</div>
 		</nav>
-		<a class="siteHeader__brand" href="{{ '/' | relative_url }}" data-section="">
-			<img class="siteHeader__icon" src="{{ site.app_icon | relative_url }}" alt="">
-			<span class="siteHeader__name">{{ site.brand.name }}</span>
-		</a>
-		<a class="btn btn--ghost btn--small siteHeader__call" href="tel:{{ site.location.phone | remove: '-' }}">{% include icon.html name="phone" %} <span class="siteHeader__phone">{{ site.location.phone }}</span><span class="siteHeader__phoneShort">전화</span></a>
+		<button class="siteHeader__toggle" type="button" aria-controls="site-menu" aria-expanded="false" aria-label="메뉴 열기">
+			<svg class="siteHeader__iconOpen" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+			<svg class="siteHeader__iconClose" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+		</button>
 	</div>
 </header>
+<script>
+(function () {
+	var btn = document.querySelector('.siteHeader__toggle');
+	function set(open) {
+		document.body.classList.toggle('menu-open', open);
+		btn.setAttribute('aria-expanded', String(open));
+		btn.setAttribute('aria-label', open ? '메뉴 닫기' : '메뉴 열기');
+	}
+	btn.addEventListener('click', function () { set(!document.body.classList.contains('menu-open')); });
+	document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && document.body.classList.contains('menu-open')) { set(false); btn.focus(); } });
+	document.querySelectorAll('.siteHeader__links a').forEach(function (a) { a.addEventListener('click', function () { set(false); }); });
+})();
+</script>
