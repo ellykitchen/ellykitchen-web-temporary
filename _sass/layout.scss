@@ -547,6 +547,8 @@ body.home[data-theme="dark"] .siteHeader--overlay {
 }
 
 body.home[data-theme="dark"] .pager { color: $app-surface; }
+// 어두운 섹션(사진·픽업)에서는 지금 섹션 알약이 바탕에 묻히지 않게 밝게 뒤집는다
+body.home[data-theme="dark"] .pager__link[aria-current] .pager__label { background: $app-surface; color: $app-on; }
 
 .scrollHint {
 	position: fixed;
