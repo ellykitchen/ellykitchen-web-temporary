@@ -242,8 +242,9 @@
 		if (!el) return;
 		e.preventDefault();
 		if (window.ellyCloseMenu) window.ellyCloseMenu();
-		var path = SECTION_PATH[id] || '/';
-		if (location.pathname !== path) history.pushState(null, '', path);
+		// 예전 주소가 있는 섹션은 /about 등, 나머지는 /#signup처럼 해시로 남겨 새로고침·공유해도 그 섹션이 열리게
+		var path = SECTION_PATH[id] || (id === 'home' ? '/' : '/#' + id);
+		if (location.pathname + location.hash !== path) history.pushState(null, '', path);
 		el.scrollIntoView({ behavior: behavior() });
 		el.setAttribute('tabindex', '-1');
 		el.focus({ preventScroll: true });
