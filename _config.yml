@@ -10,95 +10,152 @@ canonical_url     : https://www.ellykitchen.co.kr
 og_image          : https://www.ellykitchen.co.kr/assets/social-media-banner.jpg
 app_icon          : assets/app-icon.png
 
-# 브랜드
+# 브랜드 (문구는 앱 lib/i18n/ko.i18n.json의 홈 A·온보딩 문구와 같게 맞춘다)
 brand:
   name            : 엘리키친
   tagline         : 20년 외식 경력으로 만든 수제 밀키트와 반찬
-  title_lines:                                        # 히어로 제목 (줄마다 끊어서 표시)
+  store_line      : 엘리키친 · 해운대점                # 앱 home.intro.storeLine
+  title_lines:                                        # 앱 home.intro.title
     - 20년 외식 경력으로 만든
     - 수제 밀키트와 반찬
-  eyebrow         : 부산 해운대 좌동 · 수제 밀키트 전문점
-  lead            : 건강하고 맛있는 음식을 제공하고자 하는 엘리가 운영합니다. 자체 개발한 레시피로 매일 정성껏 만듭니다.
-  hero_image      : assets/photos/storefront.jpg
-  hero_image_alt  : 엘리키친 매장 외관. 아치형 입구 위에 엘리키친 간판이 걸려 있다.
-  facts:                                              # 히어로 버튼 아래 한 줄 정보
-    - icon        : map-pin
-      text        : 대천로 110, 1층
-    - icon        : parking
-      text        : 무료 주차
-    - icon        : bag
-      text        : 포장 · 예약 · 단체
+  lead            : 건강하고 맛있는 한 끼를 드리고 싶은 엘리가 운영해요.   # 앱 home.intro.description
+  hero_image      : assets/menu/hero.jpg
+  hero_image_alt  : 고기, 오징어, 떡, 양파를 넣고 참깨를 뿌린 매운 볶음
 
-# 히어로 아래 사진 띠 (인스타그램 elly_kitchen_haeundae 게시물, 정사각형)
-strip:
-  - src           : assets/photos/strip-mealkit.jpg
-    alt           : 소분해 포장한 불고기 밀키트
-  - src           : assets/photos/strip-prep.jpg
-    alt           : 계란, 다진 파, 채소를 손질해 둔 모습
-  - src           : assets/photos/strip-sauce.jpg
-    alt           : 통에 담은 양념 반찬
-  - src           : assets/photos/strip-kimchi.jpg
-    alt           : 버무리는 중인 배추김치
-  - src           : assets/photos/strip-soup.jpg
-    alt           : 그릇에 담은 버섯 수프
+# 앱 내려받기 (스토어 링크)
+app:
+  app_store_url   : https://apps.apple.com/kr/app/id6820393074
+  play_store_url  : https://play.google.com/store/apps/details?id=kr.co.ellykitchen.mobile
 
-# 소개
-about:
-  heading_lines:                                      # 섹션 큰 제목
-    - 건강하고 맛있는 한 끼를
-    - 집에서도 간편하게
-  title           : 엘리키친 이야기
-  highlight       : 20년
-  highlight_text  : "외식 경력으로\n자체 개발한 레시피"   # \n 위치에서 줄을 바꾼다
-  paragraphs:
-    - 엘리키친은 20년 동안 외식업에 몸담아 온 엘리가 자체 개발한 레시피로 운영하는 수제 밀키트·반찬 전문점입니다.
-    - 건강하고 맛있는 음식을 집에서도 간편하게 드실 수 있도록, 재료 손질부터 조리까지 매장에서 직접 합니다.
-    - 매일 먹는 밑반찬부터 바로 조리해 먹는 밀키트까지, 한 끼를 든든하게 채워 드립니다.
-  images:
-    - src         : assets/photos/about-ingredients.jpg
-      alt         : 손질해 둔 부추, 당근, 무채
-    - src         : assets/photos/about-cooking.jpg
-      alt         : 소분 용기에 담아 둔 수프
+# 메인 섹션 (위에서 아래 순서). id는 주소(/about 등)와 오른쪽 섹션 표시에 쓴다.
+# 예전 주소 /about·/food·/location은 각각 story·menu·location 섹션으로 이어진다.
+sections:
+  - id: home
+    label: 앱 받기
+  - id: story
+    label: 엘리키친
+  - id: signup
+    label: 가입
+  - id: ordersheet
+    label: 주문서
+  - id: howto
+    label: 주문 과정
+  - id: pickup
+    label: 픽업
+  - id: menu
+    label: 메뉴
+  - id: location
+    label: 오시는 길
 
-# 엘리키친의 약속 (아이콘 이름은 _includes/icon.html에 정의된 것)
-values:
-  title           : 엘리키친의 약속
+# 엘리키친 (앱 onboarding.header)
+story:
+  title           : 엘리키친
+  heading_lines:
+    - 매일 한 끼를
+    - 든든하게 채워 드릴게요
+  text            : 건강하고 맛있는 음식을 집에서도 간편하게 드실 수 있도록, 엘리가 자체 개발한 레시피로 재료 손질부터 조리까지 매장에서 직접 해요.
+  photos:                                             # 원형 사진 (대체 텍스트는 보이는 모습)
+    - src         : assets/menu/menu-01.jpg
+      alt         : 치즈를 올려 구운 단호박
+    - src         : assets/menu/brand-1.jpg
+      alt         : 통에 담은 배추김치
+    - src         : assets/menu/menu-04.jpg
+      alt         : 윤기 나게 조린 연근
+    - src         : assets/menu/brand-2.jpg
+      alt         : 속을 파내 손질한 단호박
+    - src         : assets/menu/menu-06.jpg
+      alt         : 무와 고기를 넣은 국
+    - src         : assets/menu/brand-3.jpg
+      alt         : 보쌈 고기와 두부
+
+# 가입 (앱 onboarding.step.signup, 단계 이름은 home.step)
+signup:
+  title           : 가입
+  thumb           : assets/menu/brand-3.jpg
+  heading_lines:
+    - 가입하시면 주문하실 수 있게
+    - 준비할게요
+  text_lines:
+    - 매장에서 확인하는 데 시간이 조금 걸려요.
+    - 확인이 끝나면 바로 알림을 보내 드릴게요.
+  steps:
+    - 가입 완료
+    - 매장 준비
+    - 주문 가능
+  current_step    : 2                                 # 매장 준비
+  image           : assets/menu/banchan-packed.jpg
+  image_alt       : 용기마다 나눠 담아 줄지어 놓은 반찬
+
+# 주문서 (앱 onboarding.step.order)
+ordersheet:
+  title           : 주문서
+  thumb           : assets/menu/fried-rice.jpg
+  heading_lines:
+    - 주문서에 올라온 메뉴를
+    - 주문하실 수 있어요
+  text_lines:
+    - 주문서가 올라오면 앱 홈에서 바로 보실 수 있어요.
+    - 1인 주방이라 수량이 정해져 있어요.
+  device          : assets/app/home.webp
+  device_alt      : 엘리키친 앱 홈 화면. 주문서 카드에 주문·입금·픽업 날짜와 남은 시간이 보인다.
+
+# 주문 과정 (앱 스토어 스크린샷 문구)
+howto:
+  title           : 앱에서 이렇게 주문하실 수 있어요
   items:
-    - title       : 자체 개발 레시피
-      text        : 20년 외식 경력에서 나온 엘리만의 레시피로 만듭니다.
-      icon        : utensils
-    - title       : 직접 손질한 재료
-      text        : 신선한 재료를 매장에서 직접 손질하고 조리합니다.
-      icon        : leaf
-    - title       : 포장 · 예약 · 단체 이용
-      text        : 포장과 예약이 가능하고, 단체 이용도 환영합니다.
-      icon        : bag
+    - device      : assets/app/menu-detail.webp
+      text        : "원하는 옵션과 수량으로\n담으실 수 있어요"
+      alt         : 앱 메뉴 상세 화면
+    - device      : assets/app/order.webp
+      text        : "픽업하실 날과 매장을\n주문 전에 보실 수 있어요"
+      alt         : 앱 주문하기 화면
+    - device      : assets/app/order-detail.webp
+      text        : "주문 진행 상황을\n한눈에 보실 수 있어요"
+      alt         : 앱 주문 상세 화면
+    - device      : assets/app/favorite.webp
+      text        : "찜한 메뉴를\n모아 보실 수 있어요"
+      alt         : 앱 찜 화면
 
-# 음식 사진
-gallery:
-  title           : 엘리키친의 음식
-  subtitle        : 매장에서 직접 만드는 반찬과 밀키트입니다.
+# 픽업 (앱 onboarding.step.pickup·home.howToOrder.pickup)
+pickup:
+  title           : 픽업
+  heading_lines:
+    - 픽업일에 매장에서
+    - 받으실 수 있어요
+  text_lines:
+    - 메뉴가 준비되면 알림을 보내 드려요.
+    - 정성껏 준비해 두고 기다릴게요.
+  image           : assets/photos/storefront.jpg
+  image_alt       : 엘리키친 해운대점 매장 외관. 아치형 입구 위에 엘리키친 간판이 걸려 있다.
+
+# 메뉴 (앱 home.menuShowcase, 유의사항 common.notice.menuPhoto)
+# 메뉴 이름은 매장 확인 뒤 넣는다. 지금 대체 텍스트는 보이는 모습 설명.
+menu:
+  title           : 이런 메뉴를 만들어요
+  subtitle        : 수제 밀키트 · 반찬
+  notice          : 메뉴 사진은 연출된 이미지로 실제와 다를 수 있어요.
   items:
-    - src         : assets/photos/gallery-pa-kimchi.jpg
-      alt         : 파김치
-    - src         : assets/photos/gallery-squid.jpg
-      alt         : 오징어채 무침
-    - src         : assets/photos/gallery-sausage-radish.jpg
-      alt         : 소시지 야채볶음
-    - src         : assets/photos/gallery-bibim.jpg
-      alt         : 채소 비빔
-    - src         : assets/photos/gallery-japchae.jpg
-      alt         : 잡채
-    - src         : assets/photos/gallery-mapo-tofu.jpg
-      alt         : 마파두부
-    - src         : assets/photos/gallery-bulgogi-hotpot.jpg
-      alt         : 불고기 전골
-    - src         : assets/photos/gallery-salad-box.jpg
-      alt         : 샐러드 도시락
+    - src         : assets/menu/menu-01.jpg
+      alt         : 치즈를 올려 구운 단호박
+    - src         : assets/menu/menu-02.jpg
+      alt         : 소스를 발라 구운 다진 고기 요리
+    - src         : assets/menu/menu-03.jpg
+      alt         : 새우와 방울토마토를 넣은 파스타
+    - src         : assets/menu/menu-04.jpg
+      alt         : 윤기 나게 조린 연근
+    - src         : assets/menu/menu-05.jpg
+      alt         : 소시지와 계란을 넣고 만 랩
+    - src         : assets/menu/menu-06.jpg
+      alt         : 무와 고기를 넣은 국
+    - src         : assets/menu/menu-07.jpg
+      alt         : 양파, 버섯과 함께 볶은 소고기
+    - src         : assets/menu/menu-08.jpg
+      alt         : 양배추를 넣은 매운 볶음
 
 # 오시는 길
 location:
   title           : 오시는 길
+  store_name      : 엘리키친 · 해운대점
   road_address    : 부산광역시 해운대구 대천로 110, 1층
   lot_address     : 좌동 1295-2
   phone           : 0507-1370-1273
@@ -121,7 +178,7 @@ company:
   legal_name      : 엘리키친                          # 상호 (사업자등록증 기준)
   owner           : 진은경                            # 대표자
   business_number : 470-63-00674                      # 사업자등록번호
-  mail_order_number: 제2024-부산해운대-0001호          # 통신판매업 신고번호
+  mail_order_number: 2024-부산해운대-0001          # 통신판매업 신고번호
   instagram       :                                   # 인스타그램 사용자명 (@ 제외). 현재 페이지에서는 사용하지 않음
   kakao_channel   :                                   # 카카오톡 채널 URL
 
